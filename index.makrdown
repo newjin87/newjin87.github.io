@@ -4,4 +4,4 @@
 
 layout: default
 ---
-hohoho
+{{ post.excerpt }}
