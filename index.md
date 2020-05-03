@@ -1,7 +1,7 @@
 ---
-layout: post
+layout: default
 ---
-
+<div>
 <ul>
   {% for post in site.posts %}
     <li>
@@ -9,3 +9,4 @@ layout: post
     </li>
   {% endfor %}
 </ul>
+</div>

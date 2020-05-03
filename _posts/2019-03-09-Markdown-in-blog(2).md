@@ -21,9 +21,7 @@ comments: true
 
 사실 마크다운 편집기는 굉장히 많이 존재한다. 하지만 이러한 기준에 적합한 편집기 중 추천할 만한 편집기는 바로 **Typora** 이다. 다음의 사이트는 [Typora의 홈페이지](https://typora.io/)이다. 매우 심플한 홈페이지와 마찬가지로 **Typora** 또한 매우 심플한 편집기이지만 동시에 매우 강력한 편집기이기도 하다.
 
-![Typora 홈페이지](https://www.dropbox.com/s/fufkh9j1320ezxd/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202019-03-09%20%EC%98%A4%ED%9B%84%207.54.44.png?dl=1)
-
-
+![Typora 홈페이지](https://github.com/newjin87/storage/blob/master/_img/markdown/typora.png?raw=true)
 
 
 ## Typora의 장점(1): 직관적인 인터페이스
@@ -31,7 +29,7 @@ comments: true
 마크다운 편집기의 불편함 중의 하나는 내가 작성한 글이 실제 웹에서 어떻게 나타나는지 확인할 수가 없다는 점이다. 하지만 **Typora** 는 사용자가 마크다운 언어로 작성한 글을 편집기에서 바로 바로 웹상에서 나타나는 화면으로 바꾸어 준다! 이러한 기능은 마크다운 언어를 처음 사용하는 유저(한글 프로그램에 익숙)들에게 굉장히 큰 장점으로 다가온다.
 물론 편집기의 모드를 선택함으로써 소스코드 모드로 전환하여 기존의 마크다운 편집기와 같이 사용도 할 수가 있다. 따라서 사용자들은 이러한 모드 전환을 통해서 자신에게 알맞은 형태로 사용이 가능하다.
 
-<img src="https://www.dropbox.com/s/awpg14abtij5329/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202019-03-09%20%EC%98%A4%ED%9B%84%2010.32.57.png?dl=1" width="50%"><img src="https://www.dropbox.com/s/vcjvdy23nu3el93/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202019-03-09%20%EC%98%A4%ED%9B%84%2010.32.33.png?dl=1" width="50%">
+<img src="https://github.com/newjin87/storage/blob/master/_img/markdown/mode.png?raw=true" width="50%"><img src="https://github.com/newjin87/storage/blob/master/_img/markdown/mode1.png?raw=true" width="50%">
 <p style="text-align: center;"><Typora의 일반 모드(좌)와 소스코드 모드(우)></p>
 
 
@@ -47,13 +45,12 @@ comments: true
 첫 번째 방법은 위에서 말한 HTML 코드로 변환한 후에 이를 통해서 블로그를 작성하는 방법이다. 이러한 방법은 네이버 뿐만이 아니라 범용적으로 HTML 코드로 입력이 필요한 경우에도 사용할 수 있는 방법이다. 이를 위해서는 네이버 블로그 스마트 에디터 구버젼에서 HTML모드를 선택하여 붙여넣기를 하면 된다. 하지만 이 경우에 문제가 발생하는데 네이버의 경우 CSS가 전체 적용이 불가능하고 개별적으로만 적용이 되기 때무에 에디터를 통해서 일일이 스타일을 설정을 해주어야 한다는 사실이다.
  다음의 캡쳐는 네이버 에디터에서 HTML로 붙여넣기를 한 화면이다.
 
-<img src="https://www.dropbox.com/s/ujpioavmiv621g5/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202019-03-09%20%EC%98%A4%ED%9B%84%2010.50.13.png?dl=1">
+<img src="https://github.com/newjin87/storage/blob/master/_img/markdown/html.png?raw=true">
 
 
 두번째 방법은 바로 **Typora** 의 일반 모드 자체에서 그대로 글 전체를 복사한 후에 그대로 붙여넣기를 하는 방법이다. 사실 첫 번째 방법으로 이전까지의 블로그를 작성해왔다. 하지만 최근에 새로 알게 된 사실은 **Typora** 의 일반 모드에서 그대로 문서 전체를 복사한 후에 그대로 *스마트 에디터 구 버젼* 으로 붙여넣으면 거의 그대로 입력이 된다는 사실이다. 아래의 캡쳐화면과 같이 이러한 방법을 통해 블로그를 작성한다면 첫 번째 방법에서 발생한 스타일 지정의 문제도 거의 발생하지 않는다. (단 스마트 에디터 최신 버젼에서는 붙여넣기는 가능하지만 완전히 동일하게는 되지 않는다.)
 
-<img src="https://www.dropbox.com/s/3wfiuowp6pe8z35/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202019-03-09%20%EC%98%A4%ED%9B%84%2011.35.56.png?dl=1">
-
+<img src="https://github.com/newjin87/storage/blob/master/_img/markdown/naver.png?raw=true
 
 
 ## 결론
