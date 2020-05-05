@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Macbook 알아가기(1) : 맥북으로 전화통화하기 ft.아이폰"
+title:  "Macbook 알아가기 (1) : 맥북으로 전화통화하기 ft.아이폰"
 date:   2020-05-05 09:00:00 +0900
 categories: Mac
 comments: true
