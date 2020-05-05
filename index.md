@@ -2,6 +2,7 @@
 layout: default
 ---
 <div>
+<br><br>
 <ul>
   {% for post in site.posts %}
     <li>
