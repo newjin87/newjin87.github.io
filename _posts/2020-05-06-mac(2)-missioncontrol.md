@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  맥북 알아가기(2) : mission control
+title:  Macbook 알아가기(2) : mission control
 date:   2020-05-06 05:00:00 +0900
 categories: Mac
 comments: true
