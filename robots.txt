@@ -1,9 +1,2 @@
-
-
-
-
-
 User-agent: *
-Allow: /
-
-Sitemap: http://newjin87.github.io/sitemap.xml
+Allow:/
