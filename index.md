@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "LOL : Log Of my Life"
+title:  LOL
 ---
 <div>
 <br><br>
