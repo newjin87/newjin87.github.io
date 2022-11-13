@@ -22,8 +22,8 @@ title: "Log Of my Life"
 email: newjin87@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
  This site is about my study
-#baseurl: "https://newjin87.github.io" # the subpath of your site, e.g. /blog
-#url: "https://newjin87.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "https://newjin87.github.io" # the subpath of your site, e.g. /blog
+url: "https://newjin87.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: newjin87
 github_username:  newjin87
 toc:
