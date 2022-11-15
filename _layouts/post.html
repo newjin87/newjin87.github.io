@@ -53,26 +53,17 @@
                 </div>
 
             </div>
-
-            <script>
-            var gitbook = gitbook || [];
-            gitbook.push(function() {
-                gitbook.page.hasChanged({%- include metadata-post.json.tpl -%});
-            });
+            <script src="https://utteranc.es/client.js"
+                    repo="newjin87/newjin87.github.io"
+                    issue-term="url"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
             </script>
-
         </div>
 
         {%- include footer.html -%}
 
     </body>
-    <script src="https://utteranc.es/client.js"
-        repo="newjin87/newjin87.github.io"
-        issue-term="url"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4840325075345898"
-    crossorigin="anonymous"></script>
+
 </html>
