@@ -1,77 +1,29 @@
+---
+layout: null
+---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for post in site.posts %}
+    <url>
+      <loc>{{ site.url }}{{ post.url }}</loc>
+      {% if post.lastmod == null %}
+        <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+      {% else %}
+        <lastmod>{{ post.lastmod | date_to_xmlschema }}</lastmod>
+      {% endif %}
 
+      {% if post.sitemap.changefreq == null %}
+        <changefreq>weekly</changefreq>
+      {% else %}
+        <changefreq>{{ post.sitemap.changefreq }}</changefreq>
+      {% endif %}
 
-<url>
-  <loc>https://newjin87.github.io/</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2020/04/19/Keynote1.html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2020/03/19/Mirroring_2.html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2020/03/12/Mirroring_1.html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2019/04/17/googleSEO-1.html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2019/04/07/Blog-making-with-jekyll(7).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jeyll/2019/03/29/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(6).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/it/2019/03/08/Markdown-in-blog(2).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jekyll/2019/03/05/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(5).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jekyll/2019/02/26/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(4).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jekyll/2019/02/25/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(3).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jekyll/2019/02/25/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(2).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://newjin87.github.io/jekyll/2019/02/25/jekyll%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0(1).html</loc>
-  <lastmod>2020-05-05T08:33:22+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+      {% if post.sitemap.priority == null %}
+          <priority>0.5</priority>
+      {% else %}
+        <priority>{{ post.sitemap.priority }}</priority>
+      {% endif %}
 
-
+    </url>
+  {% endfor %}
 </urlset>
