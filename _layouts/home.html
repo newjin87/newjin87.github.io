@@ -45,6 +45,10 @@
                     crossorigin="anonymous"
                     async>
             </script>
+            <script>
+                var gitbook = gitbook || [];
+                gitbook.push(function() {gitbook.page.hasChanged({%- include metadata-post.json.tpl -%});});
+            </script>         
         </div>
 
         {%- include footer.html -%}
