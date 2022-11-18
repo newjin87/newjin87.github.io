@@ -16,9 +16,6 @@ cover: /assets/dinosaur.gif
 
 1. 새로운 지킬 블로그 생성
 2. 테마 설정
-3. Github 연동(기존 블로그 삭제)
-4. Google SEO, AdSense, Discuss 연결
-   
 
 # 1.  M1 맥에서 새로운 지킬 블로그(jekyll blog) 생성
 
@@ -135,5 +132,9 @@ http://localhost:4000 로 들어가면 새롭게 생성된 빈 블로그를 확�
 이 테마는 생성된 GitBook 사이트에서 스타일 정의를 가져오고 마크다운 문서를 HTML로 렌더링하는 Jekyll용 템플릿을 제공하므로 원본 repo에 변경 사항이 있을 때마다 HTML 번들을 생성 및 업로드하지 않고도 전체 사이트를 Github 페이지에 배포할 수 있습니다.
 
 ## 2-1. 테마의 설치
-`jekyll-Gitbook` 테마는 jekyll 
+`jekyll-Gitbook` 테마의 설치는 간단하다. 
+  1. 블로그 설치 폴더에서 `config.yml` 파일을 연다.
+  2. `theme: jekyll-theme-minimal`를 `remote_theme: sighingnow/jekyll-gitbook`로 수정한다.
+
+
 
