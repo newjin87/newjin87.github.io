@@ -39,7 +39,7 @@ plugins:
 logo: https://github.com/newjin87/storage/blob/master/_img/logo.png/logo.png?raw=true
 syntax_highlighter_style: colorful
 tracker:
-  google_analytics: "<YOUR GOOGLE ANALYTICS KEY, e.g, UA-xxxxxx-x>"
+  google_analytics: "google-site-verification=kYk9Z_VmT82iUsX0LnLe2pUsJ0s3ORz6f7RDQjRABHE"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
