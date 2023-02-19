@@ -31,13 +31,7 @@
                         {% endif %}
                     </h1>
                 </div>
-                <script src="https://utteranc.es/client.js"
-                repo="newjin87/newjin87.github.io"
-                issue-term="url"
-                theme="github-light"
-                crossorigin="anonymous"
-                async>
-                </script>
+
                 <div class="body-inner">
                     {%- include body.html -%}
 
@@ -56,25 +50,18 @@
                             <i class="fa fa-angle-right"></i>
                         </a>
                     {% endif %}
-
-
-                    <!-- post1 -->
-                    <ins class="adsbygoogle"
-                    style="display:inline-block;width:728px;height:90px"
-                    data-ad-client="ca-pub-4840325075345898"
-                    data-ad-slot="5576807533"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
                 </div>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4840325075345898"
-                    crossorigin="anonymous"></script>
             </div>
 
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({%- include metadata-post.json.tpl -%});
+            });
+            </script>
         </div>
 
         {%- include footer.html -%}
 
     </body>
-
 </html>
