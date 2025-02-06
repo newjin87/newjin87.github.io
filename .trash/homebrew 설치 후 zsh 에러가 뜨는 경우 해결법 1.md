@@ -1,7 +1,12 @@
-
-
-
+---
+layout: post
+title: 
+date: 2025-02-07
+Categories:
+comments: true
+---
 Homebrew를 설치했지만 `brew` 명령어를 찾을 수 없다는 오류(`zsh: command not found: brew`)가 발생한 경우 해결방법은 다음과 같습니다.
+
 ### 해결 방법 
 1. **설치 경로 확인** 
 Homebrew가 정상적으로 설치되었는지 확인하려면 다음 명령어를 실행하세요.
