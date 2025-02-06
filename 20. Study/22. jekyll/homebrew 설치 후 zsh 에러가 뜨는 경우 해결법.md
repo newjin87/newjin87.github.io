@@ -2,7 +2,7 @@
 layout: post
 title: 
 date: 2025-02-07
-Categories:
+Categories: jekyll, homebrew
 comments: true
 ---
 Homebrew를 설치했지만 `brew` 명령어를 찾을 수 없다는 오류(`zsh: command not found: brew`)가 발생한 경우 해결방법은 다음과 같습니다.

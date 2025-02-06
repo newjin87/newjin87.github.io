@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "20. Study/22. jekyll/homebrew 설치 후 zsh 에러가 뜨는 경우 해결법.md",
+                "file": "20. Study/22. jekyll/Mac에서 OneDrive 폴더 이름이 한글로 표시될 때, 영어로 변경하는 방법.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "homebrew 설치 후 zsh 에러가 뜨는 경우 해결법"
+              "title": "Mac에서 OneDrive 폴더 이름이 한글로 표시될 때, 영어로 변경하는 방법"
             }
           }
         ],
@@ -209,10 +209,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a168c68edfdd72d7",
+  "active": "31e0126c7013487c",
   "lastOpenFiles": [
-    "20. Study/22. jekyll/homebrew 설치 후 zsh 에러가 뜨는 경우 해결법 1.md",
     "20. Study/22. jekyll/homebrew 설치 후 zsh 에러가 뜨는 경우 해결법.md",
+    "20. Study/22. jekyll/Mac에서 OneDrive 폴더 이름이 한글로 표시될 때, 영어로 변경하는 방법.md",
+    "20. Study/22. jekyll/homebrew 설치 후 zsh 에러가 뜨는 경우 해결법 1.md",
     "20. Study/21. OBsidian/설정 알아보기.md",
     "00. inbox/설정 알아보기 _슬라이드.md",
     "00. inbox/2025-02-05.md",

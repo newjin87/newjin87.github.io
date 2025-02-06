@@ -1,3 +1,10 @@
+---
+layout: post
+title: 
+date: 2025-02-07
+Categories: onedrive
+comments: true
+---
 
 Mac에서 OneDrive의 기본 폴더 경로는 macOS Monterey 이후부터  
 📂 **`/Users/사용자이름/Library/CloudStorage/OneDrive-개인`**  
