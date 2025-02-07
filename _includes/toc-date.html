@@ -19,37 +19,53 @@
 
             <li class="divider"></li>
 
+            {% comment %} 모든 폴더 수집 {% endcomment %}
+            {% assign all_folders = "" | split: "" %}
             {% for collection in site.collections %}
-                <!-- <p>{{ collection.label }}</p> -->
                 {% if collection.output %}
-                    {% if collection.label == "posts" %}
-                        {% assign reversed_posts = site[collection.label] | reverse %}
-                    {% else %}
-                        {% assign reversed_posts = site[collection.label] %}
-                    {% endif %}
-
+                    {% assign reversed_posts = site[collection.label] | reverse %}
                     {% for post in reversed_posts %}
-                        {% if page.url == post.url %}
-                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                        {% else %}
-                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                        {% assign folder_path = post.path | split: "/" %}
+                        {% if folder_path.size > 2 %}
+                            {% assign folder = folder_path[1] %}
+                            {% assign all_folders = all_folders | push: folder %}
                         {% endif %}
-                            <a href="{{site.baseurl}}{{post.url}}">
-                                {{ post.title | escape }}
-                            </a>
-                            {% if site.toc.enabled %}
-                                {% if page.url == post.url %}
-                                    {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
-                                {% endif %}
-                            {% endif %}
-                        </li>
                     {% endfor %}
-
-                    {% if reversed_posts.size > 0 %}
-                        <li class="divider"></li>
-                    {% endif %}
                 {% endif %}
             {% endfor %}
+            {% assign unique_folders = all_folders | uniq | sort %}
+
+            {% comment %} 폴더별로 포스트 표시 {% endcomment %}
+            {% for folder in unique_folders %}
+                <li class="chapter">
+                    <a class="folder-toggle" href="#" data-folder="{{ folder }}">
+                        <i class="fa fa-angle-right"></i> {{ folder }}
+                    </a>
+                    <ul class="folder-posts" id="folder-{{ folder }}" style="display: none;">
+                        {% for collection in site.collections %}
+                            {% if collection.output %}
+                                {% assign reversed_posts = site[collection.label] | reverse %}
+                                {% for post in reversed_posts %}
+                                    {% assign post_folder_path = post.path | split: "/" %}
+                                    {% if post_folder_path.size > 2 and post_folder_path[1] == folder %}
+                                        {% if page.url == post.url %}
+                                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                                        {% else %}
+                                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                                        {% endif %}
+                                            <a href="{{site.baseurl}}{{post.url}}">
+                                                {{ post.title | escape }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+
+            <li class="divider"></li>
 
             <li>
                 <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
@@ -59,3 +75,26 @@
         </ul>
     </nav>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var toggles = document.getElementsByClassName('folder-toggle');
+    
+    for (var i = 0; i < toggles.length; i++) {
+        toggles[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            var folder = this.getAttribute('data-folder');
+            var postsList = document.getElementById('folder-' + folder);
+            var icon = this.querySelector('i');
+            
+            if (postsList.style.display === 'none') {
+                postsList.style.display = 'block';
+                icon.className = 'fa fa-angle-down';
+            } else {
+                postsList.style.display = 'none';
+                icon.className = 'fa fa-angle-right';
+            }
+        });
+    }
+});
+</script>
