@@ -19,59 +19,80 @@
 
             <li class="divider"></li>
 
-            {% comment %} 모든 폴더와 카테고리 수집 {% endcomment %}
-            {% assign all_groups = "" | split: "" %}
-            
-            {% comment %} posts 컬렉션 처리 {% endcomment %}
+            {% comment %} 폴더 기반 그룹화 {% endcomment %}
+            {% assign all_folders = "" | split: "" %}
             {% for post in site.posts %}
                 {% assign folder_path = post.path | split: "/" %}
                 {% if folder_path.size > 2 %}
-                    {% assign group = folder_path[1] %}
-                    {% assign group_type = "folder" %}
-                {% elsif post.category %}
-                    {% assign group = post.category %}
-                    {% assign group_type = "category" %}
-                {% else %}
-                    {% assign group = "기타" %}
-                    {% assign group_type = "category" %}
+                    {% assign folder_name = folder_path[1] | split: "." %}
+                    {% if folder_name.size > 1 %}
+                        {% assign folder_number = folder_name[0] %}
+                        {% assign folder_title = folder_name[1] | strip %}
+                        {% assign folder_info = folder_number | append: "::" | append: folder_title %}
+                        {% assign all_folders = all_folders | push: folder_info %}
+                    {% endif %}
                 {% endif %}
-                {% assign group_info = group | append: "::" | append: group_type %}
-                {% assign all_groups = all_groups | push: group_info %}
             {% endfor %}
             
-            {% assign unique_groups = all_groups | uniq | sort %}
+            {% assign unique_folders = all_folders | uniq | sort %}
 
-            {% comment %} 폴더/카테고리별로 포스트 표시 {% endcomment %}
-            {% for group_info in unique_groups %}
-                {% assign group_parts = group_info | split: "::" %}
-                {% assign group = group_parts[0] %}
-                {% assign group_type = group_parts[1] %}
+            {% comment %} 카테고리 기반 그룹화 {% endcomment %}
+            {% assign all_categories = "" | split: "" %}
+            {% for post in site.posts %}
+                {% assign folder_path = post.path | split: "/" %}
+                {% if folder_path.size <= 2 and post.categories %}
+                    {% for category in post.categories %}
+                        {% assign all_categories = all_categories | push: category %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            
+            {% assign unique_categories = all_categories | uniq | sort %}
+
+            {% comment %} 폴더별로 포스트 표시 {% endcomment %}
+            {% for folder_info in unique_folders %}
+                {% assign folder_parts = folder_info | split: "::" %}
+                {% assign folder_number = folder_parts[0] %}
+                {% assign folder_title = folder_parts[1] %}
                 
                 <li class="chapter">
-                    <a class="group-toggle" href="#" data-group="{{ group }}" data-type="{{ group_type }}">
+                    <a class="folder-toggle" href="#" data-folder="{{ folder_number }}">
                         <i class="fa fa-angle-right"></i> 
-                        {% if group_type == "folder" %}
-                            📁 {{ group }}
-                        {% else %}
-                            🏷️ {{ group }}
-                        {% endif %}
+                        📁 {{ folder_number }}. {{ folder_title }}
                     </a>
-                    <ul class="group-posts" id="group-{{ group }}" style="display: none;">
+                    <ul class="folder-posts" id="folder-{{ folder_number }}" style="display: none;">
                         {% for post in site.posts %}
-                            {% assign show_post = false %}
-                            {% assign folder_path = post.path | split: "/" %}
-                            
-                            {% if group_type == "folder" and folder_path.size > 2 and folder_path[1] == group %}
-                                {% assign show_post = true %}
-                            {% elsif group_type == "category" %}
-                                {% if folder_path.size <= 2 %}
-                                    {% if post.category == group or (group == "기타" and post.category == nil) %}
-                                        {% assign show_post = true %}
+                            {% assign post_folder_path = post.path | split: "/" %}
+                            {% if post_folder_path.size > 2 %}
+                                {% assign post_folder = post_folder_path[1] | split: "." %}
+                                {% if post_folder.size > 1 and post_folder[0] == folder_number %}
+                                    {% if page.url == post.url %}
+                                    <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                                    {% else %}
+                                    <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
                                     {% endif %}
+                                        <a href="{{site.baseurl}}{{post.url}}">
+                                            {{ post.title | escape }}
+                                        </a>
+                                    </li>
                                 {% endif %}
                             {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
 
-                            {% if show_post %}
+            {% comment %} 카테고리별로 포스트 표시 {% endcomment %}
+            {% for category in unique_categories %}
+                <li class="chapter">
+                    <a class="category-toggle" href="#" data-category="{{ category }}">
+                        <i class="fa fa-angle-right"></i> 
+                        🏷️ {{ category }}
+                    </a>
+                    <ul class="category-posts" id="category-{{ category }}" style="display: none;">
+                        {% for post in site.posts %}
+                            {% assign folder_path = post.path | split: "/" %}
+                            {% if folder_path.size <= 2 and post.categories contains category %}
                                 {% if page.url == post.url %}
                                 <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                                 {% else %}
@@ -100,23 +121,29 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var toggles = document.getElementsByClassName('group-toggle');
+    var toggles = document.getElementsByClassName('folder-toggle');
+    var categoryToggles = document.getElementsByClassName('category-toggle');
     
-    for (var i = 0; i < toggles.length; i++) {
-        toggles[i].addEventListener('click', function(e) {
-            e.preventDefault();
-            var group = this.getAttribute('data-group');
-            var postsList = document.getElementById('group-' + group);
-            var icon = this.querySelector('i');
-            
-            if (postsList.style.display === 'none') {
-                postsList.style.display = 'block';
-                icon.className = 'fa fa-angle-down';
-            } else {
-                postsList.style.display = 'none';
-                icon.className = 'fa fa-angle-right';
-            }
-        });
+    function addToggleListener(elements, type) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                var id = this.getAttribute('data-' + type);
+                var postsList = document.getElementById(type + '-' + id);
+                var icon = this.querySelector('i');
+                
+                if (postsList.style.display === 'none') {
+                    postsList.style.display = 'block';
+                    icon.className = 'fa fa-angle-down';
+                } else {
+                    postsList.style.display = 'none';
+                    icon.className = 'fa fa-angle-right';
+                }
+            });
+        }
     }
+    
+    addToggleListener(toggles, 'folder');
+    addToggleListener(categoryToggles, 'category');
 });
 </script>
