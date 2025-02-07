@@ -19,46 +19,68 @@
 
             <li class="divider"></li>
 
-            {% comment %} 모든 폴더 수집 {% endcomment %}
-            {% assign all_folders = "" | split: "" %}
-            {% for collection in site.collections %}
-                {% if collection.output %}
-                    {% assign reversed_posts = site[collection.label] | reverse %}
-                    {% for post in reversed_posts %}
-                        {% assign folder_path = post.path | split: "/" %}
-                        {% if folder_path.size > 2 %}
-                            {% assign folder = folder_path[1] %}
-                            {% assign all_folders = all_folders | push: folder %}
-                        {% endif %}
-                    {% endfor %}
+            {% comment %} 모든 폴더와 카테고리 수집 {% endcomment %}
+            {% assign all_groups = "" | split: "" %}
+            
+            {% comment %} posts 컬렉션 처리 {% endcomment %}
+            {% for post in site.posts %}
+                {% assign folder_path = post.path | split: "/" %}
+                {% if folder_path.size > 2 %}
+                    {% assign group = folder_path[1] %}
+                    {% assign group_type = "folder" %}
+                {% elsif post.category %}
+                    {% assign group = post.category %}
+                    {% assign group_type = "category" %}
+                {% else %}
+                    {% assign group = "기타" %}
+                    {% assign group_type = "category" %}
                 {% endif %}
+                {% assign group_info = group | append: "::" | append: group_type %}
+                {% assign all_groups = all_groups | push: group_info %}
             {% endfor %}
-            {% assign unique_folders = all_folders | uniq | sort %}
+            
+            {% assign unique_groups = all_groups | uniq | sort %}
 
-            {% comment %} 폴더별로 포스트 표시 {% endcomment %}
-            {% for folder in unique_folders %}
+            {% comment %} 폴더/카테고리별로 포스트 표시 {% endcomment %}
+            {% for group_info in unique_groups %}
+                {% assign group_parts = group_info | split: "::" %}
+                {% assign group = group_parts[0] %}
+                {% assign group_type = group_parts[1] %}
+                
                 <li class="chapter">
-                    <a class="folder-toggle" href="#" data-folder="{{ folder }}">
-                        <i class="fa fa-angle-right"></i> {{ folder }}
+                    <a class="group-toggle" href="#" data-group="{{ group }}" data-type="{{ group_type }}">
+                        <i class="fa fa-angle-right"></i> 
+                        {% if group_type == "folder" %}
+                            📁 {{ group }}
+                        {% else %}
+                            🏷️ {{ group }}
+                        {% endif %}
                     </a>
-                    <ul class="folder-posts" id="folder-{{ folder }}" style="display: none;">
-                        {% for collection in site.collections %}
-                            {% if collection.output %}
-                                {% assign reversed_posts = site[collection.label] | reverse %}
-                                {% for post in reversed_posts %}
-                                    {% assign post_folder_path = post.path | split: "/" %}
-                                    {% if post_folder_path.size > 2 and post_folder_path[1] == folder %}
-                                        {% if page.url == post.url %}
-                                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                                        {% else %}
-                                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                                        {% endif %}
-                                            <a href="{{site.baseurl}}{{post.url}}">
-                                                {{ post.title | escape }}
-                                            </a>
-                                        </li>
+                    <ul class="group-posts" id="group-{{ group }}" style="display: none;">
+                        {% for post in site.posts %}
+                            {% assign show_post = false %}
+                            {% assign folder_path = post.path | split: "/" %}
+                            
+                            {% if group_type == "folder" and folder_path.size > 2 and folder_path[1] == group %}
+                                {% assign show_post = true %}
+                            {% elsif group_type == "category" %}
+                                {% if folder_path.size <= 2 %}
+                                    {% if post.category == group or (group == "기타" and post.category == nil) %}
+                                        {% assign show_post = true %}
                                     {% endif %}
-                                {% endfor %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if show_post %}
+                                {% if page.url == post.url %}
+                                <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                                {% else %}
+                                <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                                {% endif %}
+                                    <a href="{{site.baseurl}}{{post.url}}">
+                                        {{ post.title | escape }}
+                                    </a>
+                                </li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -78,13 +100,13 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var toggles = document.getElementsByClassName('folder-toggle');
+    var toggles = document.getElementsByClassName('group-toggle');
     
     for (var i = 0; i < toggles.length; i++) {
         toggles[i].addEventListener('click', function(e) {
             e.preventDefault();
-            var folder = this.getAttribute('data-folder');
-            var postsList = document.getElementById('folder-' + folder);
+            var group = this.getAttribute('data-group');
+            var postsList = document.getElementById('group-' + group);
             var icon = this.querySelector('i');
             
             if (postsList.style.display === 'none') {
