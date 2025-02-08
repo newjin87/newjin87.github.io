@@ -20,26 +20,39 @@
 
 title: "Log Of my Life"
 email: newjin87@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
- This site is about my study
-#baseurl: "https://newjin87.github.io" # the subpath of your site, e.g. /blog
-url: "https://newjin87.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+description: "This site is about my study"
+url: "https://newjin87.github.io"
 twitter_username: newjin87
-github_username:  newjin87
+github_username: newjin87
+
+# Theme settings
+remote_theme: sighingnow/jekyll-gitbook
+logo: https://github.com/newjin87/storage/blob/master/_img/logo.png/logo.png?raw=true
+syntax_highlighter_style: colorful
+
+# TOC settings
 toc:
     enabled: true
     h_min: 1
     h_max: 3
+
 # Build settings
-remote_theme: sighingnow/jekyll-gitbook
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
+  - jekyll-seo-tag
 
-logo: https://github.com/newjin87/storage/blob/master/_img/logo.png/logo.png?raw=true
-syntax_highlighter_style: colorful
-tracker:
-  google_analytics: "google-site-verification=kYk9Z_VmT82iUsX0LnLe2pUsJ0s3ORz6f7RDQjRABHE"
+# Comments settings
+comments:
+  provider: utterances
+utterances:
+  repo: newjin87/newjin87.github.io
+  issue-term: pathname
+  theme: github-light
+
+# Google Analytics
+# tracker:
+#   google_analytics: "UA-XXXXXXXXX-X"  # 실제 GA 추적 ID로 변경 필요
 
 # Exclude from processing.
 # The following items will not be processed, by default.

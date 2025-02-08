@@ -136,11 +136,11 @@
 
             {% comment %} 최근 5개 포스트 표시 {% endcomment %}
             <li class="chapter">
-                <a class="recent-toggle" href="#" data-recent="posts">
-                    <i class="fa fa-angle-right"></i> 
+                <span class="recent-posts-title">
+                    <i class="fa fa-clock-o"></i> 
                     🕒 Recent Posts
-                </a>
-                <ul class="recent-posts" id="recent-posts" style="display: none;">
+                </span>
+                <ul class="recent-posts">
                     {% assign recent_posts = site.posts | reverse | limit: 5 %}
                     {% for post in recent_posts %}
                         {% if page.url == post.url %}
