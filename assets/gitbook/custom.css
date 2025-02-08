@@ -338,3 +338,40 @@
     color: #4183c4;
     font-weight: bold;
 }
+
+.show-more-posts {
+    display: block;
+    padding: 10px 15px;
+    color: #666;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.show-more-posts:hover {
+    color: #4183c4;
+    text-decoration: none;
+}
+
+.show-more-posts i {
+    margin-right: 5px;
+}
+
+.all-posts {
+    padding-left: 15px;
+}
+
+.all-posts li {
+    margin: 5px 0;
+}
+
+.all-posts li a {
+    color: #666;
+    font-size: 0.9em;
+    padding: 5px 15px;
+}
+
+.all-posts li.active > a {
+    color: #4183c4;
+    font-weight: bold;
+}

@@ -134,7 +134,7 @@
 
             <li class="divider"></li>
 
-            {% comment %} 최근 5개 포스트 표시 {% endcomment %}
+            {% comment %} 최근 포스트 표시 {% endcomment %}
             <li class="chapter">
                 <span class="recent-posts-title">
                     <i class="fa fa-clock-o"></i> 
@@ -154,6 +154,25 @@
                         </li>
                     {% endfor %}
                 </ul>
+                {% if site.posts.size > 5 %}
+                <a class="show-more-posts" href="#" onclick="toggleAllPosts(event)">
+                    <i class="fa fa-angle-down"></i> Show All Posts
+                </a>
+                <ul class="all-posts" style="display: none;">
+                    {% assign remaining_posts = site.posts | reverse | offset: 5 %}
+                    {% for post in remaining_posts %}
+                        {% if page.url == post.url %}
+                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                        {% else %}
+                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                        {% endif %}
+                            <a href="{{site.baseurl}}{{post.url}}">
+                                {{ post.title | escape }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </li>
 
             <li class="divider"></li>
@@ -171,7 +190,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var toggles = document.getElementsByClassName('folder-toggle');
     var categoryToggles = document.getElementsByClassName('category-toggle');
-    var recentToggle = document.getElementsByClassName('recent-toggle');
     
     function addToggleListener(elements, type) {
         for (var i = 0; i < elements.length; i++) {
@@ -194,6 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addToggleListener(toggles, 'folder');
     addToggleListener(categoryToggles, 'category');
-    addToggleListener(recentToggle, 'recent');
 });
+
+function toggleAllPosts(event) {
+    event.preventDefault();
+    var allPosts = document.querySelector('.all-posts');
+    var showMoreBtn = document.querySelector('.show-more-posts');
+    
+    if (allPosts.style.display === 'none') {
+        allPosts.style.display = 'block';
+        showMoreBtn.innerHTML = '<i class="fa fa-angle-up"></i> Show Less';
+    } else {
+        allPosts.style.display = 'none';
+        showMoreBtn.innerHTML = '<i class="fa fa-angle-down"></i> Show All Posts';
+    }
+}
 </script>
