@@ -33,34 +33,21 @@
                 <div class="body-inner">
                     {{ content }}
 
-                    <!-- 이전/다음 포스트 네비게이션 -->
-                    <div class="post-navigation">
-                        <div class="navigation-wrapper">
-                            {% if page.previous %}
-                            <div class="nav-previous">
-                                <a href="{{site.baseurl}}{{page.previous.url}}" class="prev-post">
-                                    <i class="fa fa-angle-left"></i>
-                                    <div class="nav-title">
-                                        <span>Previous Post</span>
-                                        <h3>{{ page.previous.title }}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            {% endif %}
+                    {% if page.previous %}
+                        <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{site.baseurl}}/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}}">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    {% endif %}
 
-                            {% if page.next %}
-                            <div class="nav-next">
-                                <a href="{{site.baseurl}}{{page.next.url}}" class="next-post">
-                                    <div class="nav-title">
-                                        <span>Next Post</span>
-                                        <h3>{{ page.next.title }}</h3>
-                                    </div>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% if page.next %}
+                        <a href="{{site.baseurl}}{{page.next.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
