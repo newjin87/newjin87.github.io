@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2019-03-09-Markdown-in-blog(2).md",
+                "file": "_posts/2019-03-05-jekyll을-이용하여-블로그-만들기(6).md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2019-03-09-Markdown-in-blog(2)"
+              "title": "2019-03-05-jekyll을-이용하여-블로그-만들기(6)"
             }
           }
         ],
@@ -211,6 +211,7 @@
   },
   "active": "31e0126c7013487c",
   "lastOpenFiles": [
+    "_posts/2019-03-09-Markdown-in-blog(2).md",
     "_posts/2019-03-05-jekyll을-이용하여-블로그-만들기(6).md",
     "_posts/2019-02-25-jekyll을-이용하여-블로그-만들기(3).md",
     "_posts/2019-02-26-jekyll을-이용하여-블로그-만들기(4).md",
