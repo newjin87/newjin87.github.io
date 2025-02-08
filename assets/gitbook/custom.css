@@ -26,13 +26,28 @@
 }
 
 .book-body .body-inner .page-wrapper .page-inner {
-    padding-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
+
+.markdown-section {
+    padding: 20px;
 }
 
 @media (max-width: 1240px) {
     .book-body .body-inner .navigation {
         max-width: calc(50% - 3px);
         width: calc(50% - 3px);
+    }
+    .book-body .body-inner .page-wrapper .page-inner {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .book-body .body-inner .page-wrapper .page-inner {
+        padding: 15px;
     }
 }
 
