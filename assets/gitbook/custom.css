@@ -307,70 +307,10 @@
     color: #4183c4;
 }
 
-.recent-posts-title {
-    display: block;
-    padding: 10px 15px;
-    font-weight: bold;
-    color: #364149;
-    font-size: 1em;
-}
-
-.recent-posts-title i {
-    margin-right: 5px;
-}
-
-.recent-posts {
-    padding-left: 15px;
-}
-
-.recent-posts li {
-    margin: 5px 0;
-}
-
-.recent-posts li a {
-    color: #666;
-    font-size: 0.9em;
-    padding: 5px 15px;
-}
-
-.recent-posts li.active > a {
-    color: #4183c4;
-    font-weight: bold;
-}
-
-.show-more-posts {
-    display: block;
-    padding: 10px 15px;
-    color: #666;
-    font-size: 0.9em;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.show-more-posts:hover {
-    color: #4183c4;
-    text-decoration: none;
-}
-
-.show-more-posts i {
-    margin-right: 5px;
-}
-
+/* Recent Posts 관련 스타일 제거 */
+.recent-posts-title,
+.recent-posts,
+.show-more-posts,
 .all-posts {
-    padding-left: 15px;
-}
-
-.all-posts li {
-    margin: 5px 0;
-}
-
-.all-posts li a {
-    color: #666;
-    font-size: 0.9em;
-    padding: 5px 15px;
-}
-
-.all-posts li.active > a {
-    color: #4183c4;
-    font-weight: bold;
+    display: none;
 }

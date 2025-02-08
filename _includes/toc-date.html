@@ -134,49 +134,6 @@
 
             <li class="divider"></li>
 
-            {% comment %} 최근 포스트 표시 {% endcomment %}
-            <li class="chapter">
-                <span class="recent-posts-title">
-                    <i class="fa fa-clock-o"></i> 
-                    🕒 Recent Posts
-                </span>
-                <ul class="recent-posts">
-                    {% assign all_posts = site.posts | reverse %}
-                    {% assign recent_posts = all_posts | limit: 5 %}
-                    {% for post in recent_posts %}
-                        {% if page.url == post.url %}
-                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                        {% else %}
-                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                        {% endif %}
-                            <a href="{{site.baseurl}}{{post.url}}">
-                                {{ post.title | escape }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% if all_posts.size > 5 %}
-                <a class="show-more-posts" href="#" onclick="toggleAllPosts(event)">
-                    <i class="fa fa-angle-down"></i> Show All Posts
-                </a>
-                <ul class="all-posts" style="display: none;">
-                    {% for post in all_posts offset: 5 %}
-                        {% if page.url == post.url %}
-                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                        {% else %}
-                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                        {% endif %}
-                            <a href="{{site.baseurl}}{{post.url}}">
-                                {{ post.title | escape }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </li>
-
-            <li class="divider"></li>
-
             <li>
                 <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
                     Fork it Now!
@@ -213,18 +170,4 @@ document.addEventListener('DOMContentLoaded', function() {
     addToggleListener(toggles, 'folder');
     addToggleListener(categoryToggles, 'category');
 });
-
-function toggleAllPosts(event) {
-    event.preventDefault();
-    var allPosts = document.querySelector('.all-posts');
-    var showMoreBtn = document.querySelector('.show-more-posts');
-    
-    if (allPosts.style.display === 'none') {
-        allPosts.style.display = 'block';
-        showMoreBtn.innerHTML = '<i class="fa fa-angle-up"></i> Show Less';
-    } else {
-        allPosts.style.display = 'none';
-        showMoreBtn.innerHTML = '<i class="fa fa-angle-down"></i> Show All Posts';
-    }
-}
 </script>
