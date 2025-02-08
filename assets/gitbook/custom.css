@@ -369,3 +369,23 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* 포스트 제목 스타일 */
+h1 {
+    font-size: 2em;  /* 제목 크기 조정 */
+    margin-bottom: 0.5em;  /* 제목 하단 여백 */
+}
+
+/* 포스트 메타 정보 스타일 */
+.post-meta {
+    font-size: 0.9em;  /* 메타 정보 글씨 크기 */
+    color: #666;  /* 메타 정보 색상 */
+    margin-bottom: 1em;  /* 메타 정보 하단 여백 */
+}
+
+/* 이미지 크기 조정 */
+img {
+    max-width: 100%;  /* 이미지가 부모 요소의 너비를 넘지 않도록 설정 */
+    height: auto;  /* 비율 유지 */
+    border-radius: 5px;  /* 이미지 모서리 둥글게 */
+}
