@@ -38,8 +38,8 @@
 
 .markdown-section {
     padding: 20px;
-    line-height: 1.6;
-    font-size: 1.1em;
+    line-height: 1.8;
+    font-size: 1.2em;
     color: #333;
 }
 
@@ -391,8 +391,8 @@ img {
 }
 
 .page-inner img {
-    max-width: 100%; /* 부모 요소의 너비를 넘지 않도록 설정 */
-    height: auto; /* 비율 유지 */
-    max-height: calc(100vh - 200px); /* 화면 높이에서 여백을 뺀 최대 높이 설정 */
-    object-fit: cover; /* 이미지 비율 유지 */
+    max-width: 100% !important; /* 부모 요소의 너비를 넘지 않도록 설정 */
+    height: auto !important; /* 비율 유지 */
+    max-height: calc(100vh - 200px) !important; /* 화면 높이에서 여백을 뺀 최대 높이 설정 */
+    object-fit: cover !important; /* 이미지 비율 유지 */
 }

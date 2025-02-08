@@ -156,12 +156,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 var postsList = document.getElementById(type + '-' + id);
                 var icon = this.querySelector('i');
                 
-                if (postsList.style.display === 'none') {
-                    postsList.style.display = 'block';
-                    icon.className = 'fa fa-angle-down';
-                } else {
-                    postsList.style.display = 'none';
-                    icon.className = 'fa fa-angle-right';
+                if (postsList) {
+                    if (postsList.style.display === 'none' || postsList.style.display === '') {
+                        postsList.style.display = 'block';
+                        icon.className = 'fa fa-angle-down';
+                    } else {
+                        postsList.style.display = 'none';
+                        icon.className = 'fa fa-angle-right';
+                    }
                 }
             });
         }
