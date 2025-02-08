@@ -145,6 +145,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // 모든 폴더 및 카테고리 토글 요소를 가져옵니다.
     var toggles = document.getElementsByClassName('folder-toggle');
     var categoryToggles = document.getElementsByClassName('category-toggle');
     
@@ -156,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 var postsList = document.getElementById(type + '-' + id);
                 var icon = this.querySelector('i');
                 
+                // postsList가 존재하는지 확인
                 if (postsList) {
+                    // 현재 display 상태에 따라 토글합니다.
                     if (postsList.style.display === 'none' || postsList.style.display === '') {
                         postsList.style.display = 'block';
                         icon.className = 'fa fa-angle-down';
@@ -169,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // 폴더 및 카테고리 토글 리스너 추가
     addToggleListener(toggles, 'folder');
     addToggleListener(categoryToggles, 'category');
 });
