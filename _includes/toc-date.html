@@ -17,6 +17,37 @@
                 </a>
             </li>
 
+            <!-- 자기소개 섹션 추가 -->
+            <li class="chapter">
+                <div class="profile-wrapper">
+                    {% if site.author_image %}
+                    <img src="{{ site.author_image }}" alt="profile" class="profile-img"/>
+                    {% endif %}
+                    <div class="profile-text">
+                        {% if site.author %}
+                        <p class="profile-name">{{ site.author }}</p>
+                        {% endif %}
+                        {% if site.author_bio %}
+                        <p class="profile-bio">{{ site.author_bio }}</p>
+                        {% endif %}
+                        {% if site.author_email or site.author_github %}
+                        <div class="profile-links">
+                            {% if site.author_email %}
+                            <a href="mailto:{{ site.author_email }}" title="Email">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                            {% endif %}
+                            {% if site.author_github %}
+                            <a href="https://github.com/{{ site.author_github }}" target="_blank" title="GitHub">
+                                <i class="fa fa-github"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+
             <li class="divider"></li>
 
             {% comment %} 폴더 기반 그룹화 {% endcomment %}
@@ -61,22 +92,17 @@
                         📁 {{ folder_number }}. {{ folder_title }}
                     </a>
                     <ul class="folder-posts" id="folder-{{ folder_number }}" style="display: none;">
-                        {% for post in site.posts %}
-                            {% assign post_folder_path = post.path | split: "/" %}
-                            {% if post_folder_path.size > 2 %}
-                                {% assign post_folder = post_folder_path[1] | split: "." %}
-                                {% if post_folder.size > 1 and post_folder[0] == folder_number %}
-                                    {% if page.url == post.url %}
-                                    <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                                    {% else %}
-                                    <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                                    {% endif %}
-                                        <a href="{{site.baseurl}}{{post.url}}">
-                                            {{ post.title | escape }}
-                                        </a>
-                                    </li>
-                                {% endif %}
+                        {% assign folder_posts = site.posts | where_exp: "post", "post.path contains folder_number" | sort: "date" %}
+                        {% for post in folder_posts %}
+                            {% if page.url == post.url %}
+                            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                            {% else %}
+                            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
                             {% endif %}
+                                <a href="{{site.baseurl}}{{post.url}}">
+                                    {{ post.title | escape }}
+                                </a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -90,23 +116,45 @@
                         🏷️ {{ category }}
                     </a>
                     <ul class="category-posts" id="category-{{ category }}" style="display: none;">
-                        {% for post in site.posts %}
-                            {% assign folder_path = post.path | split: "/" %}
-                            {% if folder_path.size <= 2 and post.categories contains category %}
-                                {% if page.url == post.url %}
-                                <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                                {% else %}
-                                <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                                {% endif %}
-                                    <a href="{{site.baseurl}}{{post.url}}">
-                                        {{ post.title | escape }}
-                                    </a>
-                                </li>
+                        {% assign category_posts = site.posts | where: "categories", category | sort: "date" %}
+                        {% for post in category_posts %}
+                            {% if page.url == post.url %}
+                            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                            {% else %}
+                            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
                             {% endif %}
+                                <a href="{{site.baseurl}}{{post.url}}">
+                                    {{ post.title | escape }}
+                                </a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </li>
             {% endfor %}
+
+            <li class="divider"></li>
+
+            {% comment %} 최근 5개 포스트 표시 {% endcomment %}
+            <li class="chapter">
+                <a class="recent-toggle" href="#" data-recent="posts">
+                    <i class="fa fa-angle-right"></i> 
+                    🕒 Recent Posts
+                </a>
+                <ul class="recent-posts" id="recent-posts" style="display: none;">
+                    {% assign recent_posts = site.posts | reverse | limit: 5 %}
+                    {% for post in recent_posts %}
+                        {% if page.url == post.url %}
+                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                        {% else %}
+                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                        {% endif %}
+                            <a href="{{site.baseurl}}{{post.url}}">
+                                {{ post.title | escape }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
 
             <li class="divider"></li>
 
@@ -123,6 +171,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var toggles = document.getElementsByClassName('folder-toggle');
     var categoryToggles = document.getElementsByClassName('category-toggle');
+    var recentToggle = document.getElementsByClassName('recent-toggle');
     
     function addToggleListener(elements, type) {
         for (var i = 0; i < elements.length; i++) {
@@ -145,5 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addToggleListener(toggles, 'folder');
     addToggleListener(categoryToggles, 'category');
+    addToggleListener(recentToggle, 'recent');
 });
 </script>
