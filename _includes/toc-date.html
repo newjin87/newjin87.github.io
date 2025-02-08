@@ -141,7 +141,8 @@
                     🕒 Recent Posts
                 </span>
                 <ul class="recent-posts">
-                    {% assign recent_posts = site.posts | reverse | limit: 5 %}
+                    {% assign all_posts = site.posts | reverse %}
+                    {% assign recent_posts = all_posts | limit: 5 %}
                     {% for post in recent_posts %}
                         {% if page.url == post.url %}
                         <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
@@ -154,13 +155,12 @@
                         </li>
                     {% endfor %}
                 </ul>
-                {% if site.posts.size > 5 %}
+                {% if all_posts.size > 5 %}
                 <a class="show-more-posts" href="#" onclick="toggleAllPosts(event)">
                     <i class="fa fa-angle-down"></i> Show All Posts
                 </a>
                 <ul class="all-posts" style="display: none;">
-                    {% assign remaining_posts = site.posts | reverse | offset: 5 %}
-                    {% for post in remaining_posts %}
+                    {% for post in all_posts offset: 5 %}
                         {% if page.url == post.url %}
                         <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                         {% else %}

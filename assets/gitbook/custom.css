@@ -320,7 +320,6 @@
 }
 
 .recent-posts {
-    display: block !important;  /* 항상 표시 */
     padding-left: 15px;
 }
 
