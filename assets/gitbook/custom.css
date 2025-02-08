@@ -16,13 +16,15 @@
 }
 
 .book-body .body-inner {
-    /* position: absolute; */
     margin-top: 50px;
     min-height: calc(100% - 50px);
+    padding: 0 15px;
 }
 
 .book-body .body-inner .page-wrapper {
     min-height: calc(100% - 46px);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .book-body .body-inner .page-wrapper .page-inner {
@@ -33,19 +35,24 @@
 
 .markdown-section {
     padding: 20px;
+    line-height: 1.7;
 }
 
 @media (max-width: 1240px) {
-    .book-body .body-inner .navigation {
-        max-width: calc(50% - 3px);
-        width: calc(50% - 3px);
+    .book-body .body-inner {
+        padding: 0 10px;
     }
+    
     .book-body .body-inner .page-wrapper .page-inner {
         padding: 20px;
     }
 }
 
 @media (max-width: 600px) {
+    .book-body .body-inner {
+        padding: 0 5px;
+    }
+    
     .book-body .body-inner .page-wrapper .page-inner {
         padding: 15px;
     }
