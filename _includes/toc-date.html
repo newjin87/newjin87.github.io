@@ -147,38 +147,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var toggles = document.getElementsByClassName('folder-toggle');
     var categoryToggles = document.getElementsByClassName('category-toggle');
-    
-    function addToggleListener(elements, type) {
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].addEventListener('click', function(e) {
-                e.preventDefault();
-                var id = this.getAttribute('data-' + type);
-                var postsList = document.getElementById(type + '-' + id);
-                var icon = this.querySelector('i');
-                
-                if (postsList) {
-                    if (postsList.style.display === 'none' || postsList.style.display === '') {
-                        postsList.style.display = 'block';
-                        icon.className = 'fa fa-angle-down';
-                    } else {
-                        postsList.style.display = 'none';
-                        icon.className = 'fa fa-angle-right';
-                    }
-                }
-            });
-        }
-    }
-    
-    addToggleListener(toggles, 'folder');
-    addToggleListener(categoryToggles, 'category');
-});
-</script>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var toggles = document.getElementsByClassName('folder-toggle');
-    var categoryToggles = document.getElementsByClassName('category-toggle');
 
     function addToggleListener(elements, type) {
         for (var i = 0; i < elements.length; i++) {
@@ -207,5 +175,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addToggleListener(toggles, 'folder');
     addToggleListener(categoryToggles, 'category');
+
+    // Ensure links navigate correctly
+    var postLinks = document.querySelectorAll('.folder-posts a, .category-posts a');
+    postLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var url = this.getAttribute('href');
+            window.location.href = url;
+        });
+    });
 });
 </script>
