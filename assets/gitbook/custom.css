@@ -389,3 +389,10 @@ img {
     height: auto;  /* 비율 유지 */
     border-radius: 5px;  /* 이미지 모서리 둥글게 */
 }
+
+.page-inner img {
+    max-width: 100%; /* 부모 요소의 너비를 넘지 않도록 설정 */
+    height: auto; /* 비율 유지 */
+    max-height: calc(100vh - 200px); /* 화면 높이에서 여백을 뺀 최대 높이 설정 */
+    object-fit: cover; /* 이미지 비율 유지 */
+}
