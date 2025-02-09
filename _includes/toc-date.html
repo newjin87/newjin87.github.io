@@ -92,14 +92,14 @@
                         📁 {{ folder_number }}. {{ folder_title }}
                     </a>
                     <ul class="folder-posts" id="folder-{{ folder_number }}" style="display: none;">
-                        {% assign folder_posts = site.posts | where_exp: "post", "post.path contains folder_number" | sort: "date" %}
+                        {% assign folder_posts = site.posts | where: "path", folder_number | sort: "date" %}
                         {% for post in folder_posts %}
                             {% if page.url == post.url %}
                             <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                             {% else %}
                             <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
                             {% endif %}
-                                <a href="{{site.baseurl}}{{post.url}}">
+                                <a href="{{site.baseurl}}{{post.url}}" onclick="event.stopPropagation();">
                                     {{ post.title | escape }}
                                 </a>
                             </li>
@@ -184,6 +184,16 @@ document.addEventListener('DOMContentLoaded', function() {
             var url = this.getAttribute('href');
             window.location.href = url;
         });
+    });
+});
+
+// Add an event listener to handle sidebar toggle on subpages
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.querySelector(".sidebar-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    sidebarToggle.addEventListener("click", function() {
+        sidebar.classList.toggle("sidebar-open");
     });
 });
 </script>
