@@ -21,42 +21,65 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Locate Automation Folder
+      id: locate
+      run: |
+        # run_daily_briefing.py 파일이 어디 있는지 찾습니다.
+        SCRIPT_PATH=$(find . -name "run_daily_briefing.py" | head -n 1)
+        
+        if [ -z "$SCRIPT_PATH" ]; then
+          echo "❌ Critical Error: run_daily_briefing.py not found!"
+          exit 1
+        fi
+        
+        # 파일이 있는 디렉토리 경로 추출
+        WORK_DIR=$(dirname "$SCRIPT_PATH")
+        echo "✅ Found automation script at: $WORK_DIR"
+        echo "work_dir=$WORK_DIR" >> $GITHUB_OUTPUT
+
     - name: Install Dependencies
       run: |
+        WORK_DIR="${{ steps.locate.outputs.work_dir }}"
+        cd "$WORK_DIR"
         if [ -f "requirements.txt" ]; then
             pip install -r requirements.txt
-        elif [ -f "automation/requirements.txt" ]; then
-            pip install -r automation/requirements.txt
+        else
+            echo "⚠️ No requirements.txt found in $WORK_DIR"
         fi
 
     - name: Run Daily Analysis
       env:
         GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
       run: |
-        if [ -d "automation" ]; then
-            cd automation
-            python run_daily_briefing.py
-            cd ..
-        else
-            python run_daily_briefing.py
-        fi
+        WORK_DIR="${{ steps.locate.outputs.work_dir }}"
+        cd "$WORK_DIR"
+        python run_daily_briefing.py
 
     - name: Format for Blog
       run: |
-        if [ -d "automation" ]; then
-            # Temporary fix: copy analysis results to current dir so script finds them
-            cp -r automation/analysis_result . 2>/dev/null || true
-            cp -r automation/utils . 2>/dev/null || true
-            python utils/format_for_blog.py
-            rm -rf analysis_result utils
+        WORK_DIR="${{ steps.locate.outputs.work_dir }}"
+        
+        # 분석 결과와 유틸리티를 루트로 가져와서 처리 (경로 문제 단순화)
+        echo "Moving artifacts from $WORK_DIR to root..."
+        cp -r "$WORK_DIR/analysis_result" . 2>/dev/null || true
+        
+        # utils 폴더 찾기 (automation 안에 있거나 루트에 있거나)
+        UTILS_PATH=$(find . -type d -name "utils" | grep -v "site-packages" | head -n 1)
+        if [ -n "$UTILS_PATH" ]; then
+             python "$UTILS_PATH/format_for_blog.py"
         else
-            python utils/format_for_blog.py
+             echo "❌ Error: utils folder not found"
+             exit 1
         fi
 
     - name: Commit and Push Blog Post
       run: |
         git config --global user.name 'NewsBot'
         git config --global user.email 'bot@noreply.github.com'
+        
+        # _posts 폴더 생성 및 확인
+        mkdir -p _posts
+        
         git add _posts/
         if git diff --staged --quiet; then
           echo "No changes to commit."
