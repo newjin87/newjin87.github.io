@@ -1,0 +1,7 @@
+yfinance
+duckduckgo-search
+google-generativeai
+beautifulsoup4
+curl_cffi
+pandas
+python-dotenv

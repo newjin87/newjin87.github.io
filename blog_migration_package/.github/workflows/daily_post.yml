@@ -1,0 +1,86 @@
+name: Daily Investment Briefing to Blog
+
+# 매일 한국 시간 오전 8시 30분 (UTC 23:30) 실행
+on:
+  schedule:
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Blog Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        # automation 폴더가 있다면 거기로 들어가서 실행 (구조에 따라 수정 필요)
+        # 현재 제안 구조: root에 코드가 있는 경우
+        if [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+        elif [ -f "automation/requirements.txt" ]; then
+            pip install -r automation/requirements.txt
+        fi
+
+    - name: Run Daily Analysis
+      env:
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      run: |
+        # 실행 위치 조정
+        if [ -d "automation" ]; then
+            cd automation
+            python run_daily_briefing.py
+            cd ..
+        else
+            python run_daily_briefing.py
+        fi
+
+    - name: Format for Blog
+      run: |
+        # 분석 결과(analysis_result)는 실행 위치에 생김
+        # format_for_blog.py는 _posts로 파일을 옮겨줌
+        
+        if [ -d "automation" ]; then
+            # automation 폴더 안에서 분석했으므로 결과도 그 안에 있음
+            # 스크립트는 루트 기준의 _posts로 파일을 꺼내와야 함.
+            # 하지만 format_for_blog.py는 상대 경로를 씀.
+            # 가장 쉬운 방법: automation 폴더에서 스크립트 실행하되, 타겟을 상위(../_posts)로 지정하도록 스크립트를 짜거나
+            # 여기서 파일을 이동해주기.
+            
+            # format_for_blog.py가 'analysis_result'를 찾는데, 이게 automation 안에 있음.
+            # 간단히 automation 폴더로 들어가서 실행하고, _posts 경로만 수정해주면 됨.
+            # 하지만 이미 작성된 파이썬 스크립트는 "_posts"를 찾음.
+            
+            # 여기서 임시로 automation/analysis_result를 . 로 가져오자.
+            cp -r automation/analysis_result .
+            python automation/utils/format_for_blog.py
+        else
+            python utils/format_for_blog.py
+        fi
+
+    - name: Commit and Push Blog Post
+      run: |
+        git config --global user.name 'NewsBot'
+        git config --global user.email 'bot@noreply.github.com'
+        
+        # _posts 폴더에 변경사항이 있는지 확인
+        git add _posts/
+        
+        # 변경사항이 없으면 커밋하지 않고 종료
+        if git diff --staged --quiet; then
+          echo "No changes to commit."
+          exit 0
+        fi
+        
+        git commit -m "🤖 Add Daily Investment Briefing $(date +'%Y-%m-%d')"
+        git push
