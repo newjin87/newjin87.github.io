@@ -59,18 +59,48 @@ def main():
     # 4. Generate Investment Advice
     print("   ⚖️ Generating investment advice...")
     advisor = InvestmentAdvisor()
-    advice = advisor.generate_advice(company_name, target_ticker, analysis_result)
     
-    # 5. Generate Report
+    # 4-1. Get Financial Info
+    financial_info = advisor.get_financial_info(target_ticker)
+    
+    # 4-2. Generate Report directly (Advisor merges news + financials)
+    # Note: analyzer.analyze_company_news might be redundant if advisor does it all, 
+    # but let's keep it if we want 'analysis_result' for other things?
+    # Actually, let's trust advisor.generate_investment_report to be the main content.
+    
+    report_content = advisor.generate_investment_report(
+        ticker=target_ticker,
+        financial_info=financial_info,
+        news_data=news_data,
+        macro_report=macro_context
+    )
+    
+    # 5. Generate Report (Refined)
+    # Since advisor returns the full markdown report, we can use it directly?
+    # Or do we wrap it? ReportGenerator seems to have 'create_company_report'.
+    # Let's see what create_company_report does. It probably adds headers/footers.
+    # But advisor.generate_investment_report says it writes "Deep-Dive Investment Analysis Report".
+    
+    # Let's assume advisor returns the CORE analysis.
+    # Does ReportGenerator.create_company_report expect 'advice' string?
+    # Yes. "advice=advice".
+    
+    # So simple fix:
+    advice = report_content # rename for clarity
+    
     print("   📝 Generating final report...")
     generator = ReportGenerator()
     
     # Merge analysis and advice
+    # If advisor.generate_investment_report returns the WHOLE thing, maybe we don't need create_company_report?
+    # But create_company_report might add "Disclaimer", "Recent News Links" etc.
+    # Let's stick to using generator to wrap it, but pass the AI output as 'advice'.
+    
     report_content = generator.create_company_report(
         company_name=company_name,
         ticker=target_ticker,
-        analysis=analysis_result,
-        advice=advice,
+        analysis=analysis_result, # Analyzer output (summaries)
+        advice=advice,            # Advisor output (deep dive)
         news_items=news_data
     )
     
