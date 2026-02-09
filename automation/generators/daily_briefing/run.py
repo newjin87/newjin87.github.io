@@ -65,6 +65,31 @@ def run_command(command, description, env=None):
         print(f"❌ [Error] {description}: {e}")
         return False
 
+def check_post_exists(posts_dir: Path, today_str: str, keywords: list) -> bool:
+    """
+    Checks if a post containing any of the keywords exists in the _posts directory for today.
+    """
+    if not posts_dir.exists():
+        return False
+        
+    # Pattern to match today's posts
+    pattern = f"{today_str}-*.md"
+    
+    for file_path in posts_dir.glob(pattern):
+        filename = file_path.name
+        # Check if ALL keywords are present (if we want stricter) or ANY?
+        # Let's say we check if the primary entity name is in the filename.
+        # But for "LG Energy Solution" it might be "LG_Energy_Solution".
+        # So we normalize both.
+        
+        normalized_filename = filename.replace("_", "").replace("-", "").replace(" ", "").lower()
+        
+        for keyword in keywords:
+            normalized_keyword = keyword.replace("_", "").replace("-", "").replace(" ", "").lower()
+            if normalized_keyword in normalized_filename:
+                return True
+    return False
+
 def main():
     # Change working directory to the script's directory to ensure relative paths work
     script_dir = Path(__file__).parent.resolve()
@@ -77,16 +102,19 @@ def main():
     print("   Date: " + datetime.now().strftime("%Y-%m-%d"))
     print("=========================================================\n")
 
-    # Analysis result path (adjusted for new structure)
     today_str = datetime.now().strftime("%Y-%m-%d")
     
-    # Reports are now saved in ../../data/analysis_result/ (relative to script dir)
-    base_output_dir = Path("../../data/analysis_result")
+    # Reports are to be checked in _posts directory
+    # Script is in automation/generators/daily_briefing/
+    # _posts is in ../../../_posts
+    posts_dir = script_dir.parent.parent.parent / "_posts"
     
-    macro_report_path = base_output_dir / today_str / f"{today_str}_analysis_macro_Economy_KR.md"
-    
-    if macro_report_path.exists():
-        print(f"   ✨ Macro Report already exists. Skipping...")
+    # -----------------------------------------------------------
+    # STEP 1: Macro Analysis
+    # -----------------------------------------------------------
+    # Check for "Global Market" or "글로벌 시황"
+    if check_post_exists(posts_dir, today_str, ["Global Market", "글로벌 시황"]):
+        print(f"   ✨ Macro Report already exists in _posts. Skipping...")
     else:
         if not run_command("03_macro_daily_brief.py", "Macro Economic Scraping & Analysis"):
             print("⚠️ 거시 경제 분석 실패. 기업 분석은 거시 리포트 없이 진행됩니다.")
@@ -94,14 +122,12 @@ def main():
     time.sleep(2) # Stabilize
 
     # -----------------------------------------------------------
-    # 1.5 Korea Market Analysis (Global Context Driven)
+    # STEP 1.5: Korea Market Analysis
     # -----------------------------------------------------------
     print("\n>>> STEP 1.5: Korea Market Strategy Analysis")
     
-    korea_report_path = base_output_dir / today_str / f"{today_str}_Korea_Market_Strategy_KR.md"
-    
-    if korea_report_path.exists():
-        print(f"   ✨ Korea Strategy Report already exists. Skipping...")
+    if check_post_exists(posts_dir, today_str, ["Korea Market", "한국 증시"]):
+        print(f"   ✨ Korea Strategy Report already exists in _posts. Skipping...")
     else:
         if not run_command("04_korea_strategy_brief.py", "Korea Market Scraping & Analysis"):
              print("⚠️ 한국 시장 분석 실패.")
@@ -149,27 +175,12 @@ def main():
         print(f"🏭 [{idx+1}/{total_companies}] Target Processing: {company_name} ({ticker})")
         print(f"---------------------------------------------------------")
 
-        # Check if analysis already exists for today
-        # today_str is already defined above
-        
-        # We can implement a simple check: if the main report file exists, skip.
-        # But since filenames can vary based on content, let's check if "02_market_analyzer.py" would generate it.
-        # A simpler approach: check if we successfully completed this ticker in this run? No, across runs.
-        
-        # Reports are in ../../data/analysis_result/
-        output_dir = base_output_dir / today_str
-        
-        # Check if any report for this ticker exists in today's folder
-        # Files are usually named like: {date}_{company_name}.md or similar. 
-        # From 02_market_analyzer.py, it saves using TARGET_COMPANY_NAME if available.
-        # Format: {today}_analysis_{safe_name}.md
-        
-        # Safe name logic to match 02_market_analyzer.py
-        safe_name = company_name.replace(" ", "_").replace("/", "-").replace(":", "")
-        expected_report = output_dir / f"{today_str}_analysis_{safe_name}.md"
-
-        if expected_report.exists():
-            print(f"   ✨ Report already exists for {company_name}. Skipping...")
+        # Check if report already exists in _posts
+        # We check for either English or Korean version logic?
+        # Typically if one exists, we might assume done.
+        # Keywords could be company name and ticker.
+        if check_post_exists(posts_dir, today_str, [company_name]):
+            print(f"   ✨ Report already exists for {company_name} in _posts. Skipping...")
             continue
 
         # Set target for the subprocess
