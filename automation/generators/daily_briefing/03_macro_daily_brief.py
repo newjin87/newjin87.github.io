@@ -120,7 +120,7 @@ def main():
     scraper = NewsScraper()
     analyzer = NewsAnalyzer()
     advisor = InvestmentAdvisor()
-    state_manager = StateManager(state_file_path="../../data/scraping_state.json") # Initialize local state manager
+    state_manager = StateManager(state_file="../../data/scraping_state.json") # Initialize local state manager
     reporter = ReportGenerator(base_dir="../../data/scraped_news") 
     
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -130,6 +130,14 @@ def main():
     # Step 1: Check Existing News Data (Smart Integration)
     # ---------------------------------------------------------
     news_content = ""
+    
+    # Force fresh collection if user thinks news is old?
+    # Actually, we should check if the file exists.
+    # If the user says "news is not up to date", maybe we should allow overwrite?
+    # For now, let's stick to idempotency: if file exists, use it.
+    # But wait, StateManager logic for time_limit takes care of "m" vs "d".
+    # If the state file says we ran yesterday, time_limit will be 'd'.
+    # If the state file hasn't been updated in a month (or missing), time_limit will be 'm'.
     
     if news_file_path.exists():
         print(f"\n✅ Found existing news report for today: {news_file_path}")
@@ -148,6 +156,7 @@ def main():
             reporter.save_consolidated_report("Macro_Economy_Briefing", news_data)
             
             # Update Last Run Date on Success
+            state_manager.update_last_run("MACRO")
             state_manager.update_last_run("MACRO")
             
             # Read back the saved content for analysis context
