@@ -47,6 +47,8 @@ jobs:
           
           # Determine if there are changes
           if [[ -n $(git status -s) ]]; then
+            git config --global pull.rebase true
+            git pull origin main
             git commit -m "🤖 Daily Briefing Report: $(date +'%Y-%m-%d')"
             git push
           else
