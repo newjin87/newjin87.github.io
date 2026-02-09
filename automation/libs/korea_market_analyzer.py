@@ -10,7 +10,7 @@ class KoreaMarketAnalyzer:
             raise ValueError("❌ GOOGLE_API_KEY environment variable is not set.")
         
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        self.model = genai.GenerativeModel("gemini-1.5-flash")
 
     def analyze_market_impact(self, global_macro_summary: str, korea_news_list: List[Dict], language: str = 'ko') -> str:
         """
