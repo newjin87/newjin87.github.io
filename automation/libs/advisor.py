@@ -46,11 +46,12 @@ class InvestmentAdvisor:
             print(f"⚠️ Failed to fetch financial info: {e}")
             return {}
 
-    def generate_investment_report(self, ticker: str, financial_info: Dict, news_data: List[Dict], macro_report: str = "") -> str:
+    def generate_investment_report(self, ticker: str, financial_info: Dict, news_data: List[Dict], macro_report: str = "", language: str = 'ko') -> str:
         """
         재무 정보, 뉴스 분석 데이터, 그리고 거시 경제 리포트를 종합하여 투자 조언을 생성합니다.
+        language: 'ko' or 'en'
         """
-        print("🤖 Generating AI Investment Advice...")
+        print(f"🤖 Generating AI Investment Advice... ({language})")
         
         # Prepare News Context
         news_context = ""
@@ -72,9 +73,80 @@ class InvestmentAdvisor:
         - Use this macro info to assess systemic risks or tailwinds for {ticker}.
         - Does the current macro environment (Rates, GDP, Sentiment) support a Buy or Sell for this specific sector?
             """
+
+        if language == 'en':
+            role_desc = "You are a highly experienced Senior Research Analyst at a top-tier investment bank. Write in English."
+            lang_instruction = "Language: English (Professional Financial Tone)."
+            report_title = f"# 📑 [{ticker}] Deep-Dive Investment Analysis"
+            section_1_title = "## 1. 📊 Valuation & Fundamental Analysis"
+            section_1_desc = f"""
+        - **Price Analysis**: Analyze upsides based on Target Mean ({financial_info.get('target_mean', 'N/A')}).
+        - **Multiples**: Interpret PE/PBR vs Peers.
+        - **Financial Health**: Assess balance sheet strength and dividend appeal.
+            """
+            section_2_title = "## 2. 📰 Key Drivers & Deep News Analysis"
+            section_2_desc = """
+        ### (1) [Issue Name]
+        - **Fact Check**: Detailed summary of the news.
+        - **Implication**: Impact on Revenue/Earnings/Moat.
+        - **Sentiment**: Market reaction vs Priced-in status.
+            """
+            section_3_title = "## 3. ⚖️ Scenario Analysis (Bull vs Bear)"
+            section_3_desc = """
+        - **📈 Bull Case**: Best case price target & conditions.
+        - **📉 Bear Case**: Downside risks & support levels.
+            """
+            section_4_title = "## 4. 🧠 Final Verdict"
+            verdict_lines = """
+        ### 🚀 Rating: [Strong Buy / Buy / Hold / Sell]
+        
+        **Investment Thesis**:
+        *(2-3 detailed paragraphs explaining exactly WHY you chose this verdict. Connect the fundamentals with the news analysis.)*
+
+        **Action Plan**:
+        - **Entry Timing**: (Buy Now vs Wait for Dip)
+        - **Risk Management**: (Stop-loss or Macro red flags)
+            """
+        else:
+            role_desc = "You are a highly experienced Senior Research Analyst at a top-tier investment bank. Write in Korean (한국어 business professional style)."
+            lang_instruction = "Language: Korean (한국어 business professional style)."
+            report_title = f"# 📑 [{ticker}] 심층 투자 분석 리포트"
+            section_1_title = "## 1. 📊 Valuation & Fundamental Analysis"
+            section_1_desc = f"""
+        - **주가 분석**: 현재 주가 대비 목표가({financial_info.get('target_mean', 'N/A')}) 괴리율 및 상승 여력 분석.
+        - **지표 해석**: PER/PBR 수치가 경쟁사나 과거 평균 대비 어떤 의미를 갖는지 상세 서술.
+        - **재무 건전성**: 제공된 지표를 바탕으로 회사의 기초 체력 및 배당 매력도 평가.
+            """
+            section_2_title = "## 2. 📰 Key Drivers & Deep News Analysis"
+            section_2_desc = """
+        ### (1) [Issue Name]
+        - **Fact Check**: 뉴스 내용 상세 요약 (육하원칙에 의거하여 구체적으로)
+        - **Implication**: 이 이슈가 회사의 매출, 이익, 또는 시장 지배력에 미칠 구체적 영향 (단기 vs 장기)
+        - **Sentiment**: 시장의 반응(우려/기대)과 이것이 주가에 선반영되었는지 여부
+            """
+            section_3_title = "## 3. ⚖️ Scenario Analysis (Bull vs Bear)"
+            section_3_desc = """
+        - **📈 Bull Case (낙관 시나리오)**: 
+            - 최상의 경우 주가가 어디까지 갈 수 있는지.
+            - 핵심 전제 조건 (예: 신제품 성공, 환율 안정 등).
+        - **📉 Bear Case (비관 시나리오)**: 
+            - 리스크가 현실화될 경우의 하방 지지선.
+            - 최악의 악재 시나리오와 대응책.
+            """
+            section_4_title = "## 4. 🧠 Final Verdict (종합 투자의견)"
+            verdict_lines = """
+        ### 🚀 등급: [Strong Buy / Buy / Hold / Sell]
+        
+        **상세 투자 논거**:
+        *(Write 2-3 detailed paragraphs explaining exactly WHY you chose this verdict. Connect the fundamentals with the news analysis.)*
+
+        **실행 전략 (Action Plan)**:
+        - **진입 타이밍**: (지금 당장 매수해야 하는지, 조정 시 매수해야 하는지)
+        - **리스크 관리**: (손절가 혹은 주의해야 할 거시경제 지표)
+            """
         
         prompt = f"""
-        You are a highly experienced Senior Research Analyst at a top-tier investment bank.
+        {role_desc}
         Your task is to write a **Deep-Dive Investment Analysis Report** for '{ticker}'.
         
         **CRITICAL INSTRUCTION**: Do NOT summarize briefly. Provide detailed, actionable, and in-depth analysis. 
@@ -95,52 +167,28 @@ class InvestmentAdvisor:
         2. **Deep Correlation**: Don't just list news. Explain HOW specific news items (e.g., new tech, earnings shock) directly impact specific financial metrics (e.g., Forward PE, Revenue Growth).
         3. **Macro Sensitivity**: Explicitly discuss how the provided Macro Economic Backdrop impacts this specific company.
         4. **Quantitative reasoning**: Use the provided financial numbers to back up your qualitative news analysis.
-        5. **Language**: Korean (한국어 business professional style).
+        5. **Language**: {lang_instruction}
 
         ## Report Structure (Markdown)
 
-        # 📑 [{ticker}] 심층 투자 분석 리포트
+        {report_title}
 
-        ## 1. 📊 Valuation & Fundamental Analysis
+        {section_1_title}
         *(Write a detailed paragraph analyzing the valuation. Do not just list numbers.)*
-        - **주가 분석**: 현재 주가 대비 목표가({financial_info.get('target_mean', 'N/A')}) 괴리율 및 상승 여력 분석.
-        - **지표 해석**: PER/PBR 수치가 경쟁사나 과거 평균 대비 어떤 의미를 갖는지 상세 서술.
-        - **재무 건전성**: 제공된 지표를 바탕으로 회사의 기초 체력 및 배당 매력도 평가.
+        {section_1_desc}
 
-        ## 2. 📰 Key Drivers & Deep News Analysis
+        {section_2_title}
         *(Select the top 3-5 most critical issues. Analyze each in depth.)*
-        
-        ### (1) [Issue Name]
-        - **Fact Check**: 뉴스 내용 상세 요약 (육하원칙에 의거하여 구체적으로)
-        - **Implication**: 이 이슈가 회사의 매출, 이익, 또는 시장 지배력에 미칠 구체적 영향 (단기 vs 장기)
-        - **Sentiment**: 시장의 반응(우려/기대)과 이것이 주가에 선반영되었는지 여부
+        {section_2_desc}
 
-        ### (2) [Issue Name]
-        ...
-        
-        ### (3) [Issue Name]
-        ...
+        {section_3_title}
+        {section_3_desc}
 
-        ## 3. ⚖️ Scenario Analysis (Bull vs Bear)
-        - **📈 Bull Case (낙관 시나리오)**: 
-            - 최상의 경우 주가가 어디까지 갈 수 있는지.
-            - 핵심 전제 조건 (예: 신제품 성공, 환율 안정 등).
-        - **📉 Bear Case (비관 시나리오)**: 
-            - 리스크가 현실화될 경우의 하방 지지선.
-            - 최악의 악재 시나리오와 대응책.
-
-        ## 4. 🧠 Final Verdict (종합 투자의견)
-        ### 🚀 등급: [Strong Buy / Buy / Hold / Sell]
-        
-        **상세 투자 논거**:
-        *(Write 2-3 detailed paragraphs explaining exactly WHY you chose this verdict. Connect the fundamentals with the news analysis.)*
-
-        **실행 전략 (Action Plan)**:
-        - **진입 타이밍**: (지금 당장 매수해야 하는지, 조정 시 매수해야 하는지)
-        - **리스크 관리**: (손절가 혹은 주의해야 할 거시경제 지표)
+        {section_4_title}
+        {verdict_lines}
 
         ---
-        *Disclaimer: 본 리포트는 AI 분석 결과이며 투자 권유가 아닙니다.*
+        *Disclaimer: 본 리포트는 AI 분석 결과이며 투자 권유가 아닙니다. (English: AI Analysis, not investment advice.)*
         """
         
         try:
@@ -218,8 +266,5 @@ class InvestmentAdvisor:
             response = self.model.generate_content(prompt)
             return response.text
         except Exception as e:
+            print(f"❌ Macro Analysis Failed: {e}")
             return f"❌ Macro Analysis Failed: {e}"
-            return response.text
-        except Exception as e:
-            print(f"❌ Failed to generate advisor report: {e}")
-            return "보고서 생성 실패"

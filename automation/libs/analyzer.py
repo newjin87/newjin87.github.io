@@ -104,23 +104,29 @@ class NewsAnalyzer:
         except Exception:
             return []
 
-    def analyze_company_news(self, company_name: str, news_items: list, macro_context: str = "") -> dict:
+    def analyze_company_news(self, company_name: str, news_items: list, macro_context: str = "", language: str = 'ko') -> dict:
         """
         기업 뉴스 데이터를 분석하여 요약, 주요 이슈, 투자 포인트를 추출합니다.
         사용자 요청: 키워드별 뉴스 요약 포함.
+        language: 'ko' or 'en'
         """
         import json
         
         if not news_items:
             return {"summary": "No news data available.", "keywords": []}
 
-        print(f"🧠 Analyzing detailed news for {company_name}...")
+        print(f"🧠 Analyzing detailed news for {company_name}... ({language})")
         
         # Prepare context (Max ~20 items to avoid token limits)
         news_text = ""
         for idx, item in enumerate(news_items[:20], 1): 
             content_preview = item.get('content', '')[:1000] 
             news_text += f"[{idx}] Title: {item.get('title', 'No Title')}\nContent: {content_preview}\n\n"
+
+        if language == 'en':
+            lang_instruction = "Output Language: English."
+        else:
+            lang_instruction = "Output Language: Korean (한국어)."
 
         prompt = f"""
         You are a Professional Equity Research Analyst.
@@ -138,6 +144,7 @@ class NewsAnalyzer:
         3. **Bullish Factors (Good News)**: List positive indicators.
         4. **Bearish Factors (Risk Factors)**: List negative indicators or risks.
         5. **Sentiment Score**: A score from 0 (Extremely Negative) to 100 (Extremely Positive).
+        6. **Language**: {lang_instruction}
         
         Output Format (JSON):
         {{

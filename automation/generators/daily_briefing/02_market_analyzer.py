@@ -49,82 +49,73 @@ def main():
         except:
             pass
             
-    # 3. AI Analysis
+    # 3. Initialize Agents
     analyzer = NewsAnalyzer()
-    
-    # Summarize News
-    print("   🤖 Analyzing news content...")
-    analysis_result = analyzer.analyze_company_news(company_name, news_data, macro_context=macro_context)
-    
-    # 4. Generate Investment Advice
-    print("   ⚖️ Generating investment advice...")
     advisor = InvestmentAdvisor()
-    
-    # 4-1. Get Financial Info
-    financial_info = advisor.get_financial_info(target_ticker)
-    
-    # 4-2. Generate Report directly (Advisor merges news + financials)
-    # Note: analyzer.analyze_company_news might be redundant if advisor does it all, 
-    # but let's keep it if we want 'analysis_result' for other things?
-    # Actually, let's trust advisor.generate_investment_report to be the main content.
-    
-    report_content = advisor.generate_investment_report(
-        ticker=target_ticker,
-        financial_info=financial_info,
-        news_data=news_data,
-        macro_report=macro_context
-    )
-    
-    # 5. Generate Report (Refined)
-    # Since advisor returns the full markdown report, we can use it directly?
-    # Or do we wrap it? ReportGenerator seems to have 'create_company_report'.
-    # Let's see what create_company_report does. It probably adds headers/footers.
-    # But advisor.generate_investment_report says it writes "Deep-Dive Investment Analysis Report".
-    
-    # Let's assume advisor returns the CORE analysis.
-    # Does ReportGenerator.create_company_report expect 'advice' string?
-    # Yes. "advice=advice".
-    
-    # So simple fix:
-    advice = report_content # rename for clarity
-    
-    print("   📝 Generating final report...")
     generator = ReportGenerator()
     
-    # Merge analysis and advice
-    # If advisor.generate_investment_report returns the WHOLE thing, maybe we don't need create_company_report?
-    # But create_company_report might add "Disclaimer", "Recent News Links" etc.
-    # Let's stick to using generator to wrap it, but pass the AI output as 'advice'.
+    # 4. Get Financial Data (Shared)
+    financial_info = advisor.get_financial_info(target_ticker)
+
+    # 5. Loop for Multi-Language Generation
+    languages = ['ko', 'en']
     
-    report_content = generator.create_company_report(
-        company_name=company_name,
-        ticker=target_ticker,
-        analysis=analysis_result, # Analyzer output (summaries)
-        advice=advice,            # Advisor output (deep dive)
-        news_items=news_data
-    )
-    
-    # Save Report
-    output_dir = Path(f"analysis_result/{today_str}")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    report_file = output_dir / f"{today_str}_analysis_{safe_name}.md"
-    report_file.write_text(report_content, encoding="utf-8")
-    
-    print(f"   ✅ Report generated: {report_file}")
-    
-    # --- PUBLISH TO BLOG ---
-    # Generate Viral Title
-    viral_subtitle = analyzer.generate_viral_title(analysis_result.get("executive_summary", "")[:500])
-    blog_title = f"[{today_str}] {company_name} ({target_ticker}): {viral_subtitle}"
-    
-    generator.save_to_blog(
-        title=blog_title,
-        category="Stock-Analysis",
-        content=report_content,
-        tags=["Stock", company_name, target_ticker, "Investment"]
-    )
-    # -----------------------
+    for lang in languages:
+        print(f"\n   🌐 Processing Language: {lang.upper()}")
+        
+        # 5-1. Analyze News
+        print("      🤖 Analyzing news content...")
+        analysis_result = analyzer.analyze_company_news(company_name, news_data, macro_context=macro_context, language=lang)
+        
+        # 5-2. Generate Investment Advice
+        print("      ⚖️ Generating investment advice...")
+        advice = advisor.generate_investment_report(
+            ticker=target_ticker,
+            financial_info=financial_info,
+            news_data=news_data,
+            macro_report=macro_context,
+            language=lang
+        )
+        
+        # 5-3. Create Final Report
+        print("      📝 Generating final report...")
+        final_report = generator.create_company_report(
+            company_name=company_name,
+            ticker=target_ticker,
+            analysis=analysis_result,
+            advice=advice,
+            news_items=news_data,
+            language=lang
+        )
+        
+        # 5-4. Save to File
+        output_dir = Path(f"analysis_result/{today_str}")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        suffix = "_KR" if lang == 'ko' else "_EN"
+        report_file = output_dir / f"{today_str}_analysis_{safe_name}{suffix}.md"
+        report_file.write_text(final_report, encoding="utf-8")
+        print(f"      ✅ File generated: {report_file}")
+        
+        # 5-5. Publish to Blog
+        # Title Generation
+        summary_text = analysis_result.get("executive_summary", "")[:500]
+        
+        if lang == 'ko':
+             viral_subtitle = analyzer.generate_viral_title(summary_text)
+             blog_title = f"[{today_str}] {company_name} ({target_ticker}): {viral_subtitle}"
+             tags = ["Stock", "Investment", company_name, target_ticker]
+        else:
+             # For English, we append a clear indicator or use a different title format
+             blog_title = f"[{today_str}] {company_name} ({target_ticker}) - Deep Dive Analysis (English)"
+             tags = ["Stock", "Investment", company_name, target_ticker, "English"]
+
+        generator.save_to_blog(
+            title=blog_title,
+            category="Stock-Analysis",
+            content=final_report,
+            tags=tags
+        )
 
 if __name__ == "__main__":
     main()

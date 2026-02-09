@@ -208,6 +208,18 @@ def main():
         
         if analysis_report_en:
              saved_path_en = reporter.save_analysis_report("analysis_macro_Economy_EN", analysis_report_en)
+             
+             # --- PUBLISH TO BLOG (ENGLISH) ---
+             blog_title_en = f"[{today_str}] Global Market Macro Outlook (Daily Briefing)"
+             
+             reporter.save_to_blog(
+                title=blog_title_en,
+                category="Daily-Briefing",
+                content=analysis_report_en,
+                tags=["Macro", "Economy", "Global-Market", "AI-Analysis", "English"]
+             )
+             # --------------------------------
+
              print(f"      Saved EN Report: {saved_path_en}")
 
         if analysis_report_kr or analysis_report_en:
