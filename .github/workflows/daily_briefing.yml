@@ -37,8 +37,14 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add automation/data/
-          git add automation/analysis_result/ # In case some scripts write here
+          
+          # Add posts if generated (force add in case they are ignored, though usually they aren't)
+          git add _posts/
+          
+          # Add data if exists (using || true to suppress error if empty)
+          git add automation/data/ || true
+          git add automation/analysis_result/ || true
+          
           # Determine if there are changes
           if [[ -n $(git status -s) ]]; then
             git commit -m "🤖 Daily Briefing Report: $(date +'%Y-%m-%d')"
