@@ -69,7 +69,14 @@ class ReportGenerator:
         
         # 1. Prepare YAML Front Matter
         safe_title = title.replace('"', '\\"')
-        safe_name = self.sanitize_filename(title).replace(" ", "-")
+        
+        # Remove date pattern from filename part to avoid duplication (e.g., [2026-02-09])
+        filename_title = title.replace(f"[{date_str}]", "").strip()
+        # Also remove leading underscores or hyphens that might remain
+        while filename_title.startswith(('_', '-', ' ', ']')):
+            filename_title = filename_title[1:]
+            
+        safe_name = self.sanitize_filename(filename_title).replace(" ", "-")
         
         markdown_content = f"""---
 layout: post
