@@ -134,6 +134,8 @@ def main():
 
     total_companies = len(favorites)
     print(f"📋 총 {total_companies}개 기업의 분석을 시작합니다.\n")
+    
+    success_count = 0
 
     for idx, row in enumerate(favorites):
         # 컬럼명에 공백이 있을 수 있으므로 strip() 처리
@@ -185,14 +187,20 @@ def main():
         # 2-2. Investment Analysis
         if not run_command("02_market_analyzer.py", f"Analyzing Investment Report for {company_name}", env=env):
              print(f"   ⚠️ 분석 리포트 생성 실패: {company_name}")
-        
-        print(f"   ✅ Done: {company_name}")
+        else:
+            print(f"   ✅ Done: {company_name}")
+            success_count += 1
+            
         time.sleep(5) # Cool-down between companies
 
     print("\n=========================================================")
-    print("🎉 All Daily Briefings Completed Successfully!")
+    print(f"🎉 Process Completed. Successfully generated {success_count}/{total_companies} reports.")
     print("📂 Check 'analysis_result/' folder.")
     print("=========================================================")
+    
+    if success_count == 0 and total_companies > 0:
+        print("❌ Error: No reports were generated. Check API Keys (GOOGLE_API_KEY) or logs.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
