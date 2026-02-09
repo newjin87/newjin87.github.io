@@ -26,7 +26,9 @@ MACRO_SEED_QUERIES = [
 
 MACRO_KEYWORD_COUNT = 5  # Number of hot topics to extract
 MACRO_DEEP_NEWS_COUNT = 5 # Number of articles to analyze per topic
+MACRO_SEARCH_REGION = "us-en" # Force English news (US Region)
 
 # --- 2. Corporate Analysis Configuration ---
 NEWS_SEARCH_COUNT = 10    # Number of news items to search per company
 NEWS_SCRAP_COUNT = 5      # Number of items to fully scrape content for
+NEWS_SEARCH_REGION = "us-en" # Force English news for corporate analysis too

@@ -39,13 +39,14 @@ def main():
     
     # 1. Search Headlines
     print(f"   🔍 Searching for headlines...")
-    # Using simple search query logic appropriate for the company
-    query = f"{company_name} 주가 전망 실적 이슈"
+    # Using simple search query logic appropriate for the company (English for US news)
+    query = f"{company_name} stock price outlook earnings news"
     
     # Search count from config
     search_count = getattr(config, 'NEWS_SEARCH_COUNT', 10)
     
-    news_items = scraper.search_by_keyword(query, count=search_count, time_limit=time_limit)
+    # Use NEWS_SEARCH_REGION for corporate news
+    news_items = scraper.search_by_keyword(query, count=search_count, time_limit=time_limit, region_key='NEWS_SEARCH_REGION')
     
     valid_news = []
     

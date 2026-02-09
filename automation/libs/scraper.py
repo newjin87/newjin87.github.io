@@ -66,11 +66,13 @@ class NewsScraper:
         """
         DuckDuckGo를 사용하여 특정 키워드에 대한 심층 뉴스를 검색합니다.
         """
+        import config
         query = f"{ticker} {keyword} news"
         print(f"🔎 Deep Searching: '{query}'...")
         
         try:
-            results = DDGS().news(keywords=query, max_results=count)
+            region = getattr(config, 'NEWS_SEARCH_REGION', 'wt-wt')
+            results = DDGS().news(keywords=query, max_results=count, region=region)
             news_list = []
             if results:
                 for res in results:
@@ -86,14 +88,14 @@ class NewsScraper:
             print(f"   ⚠️ Search failed for '{keyword}': {e}")
             return []
 
-    def search_by_keyword(self, keyword: str, count: int = 5, time_limit: str = None) -> List[Dict[str, str]]:
+    def search_by_keyword(self, keyword: str, count: int = 5, time_limit: str = None, region_key: str = 'MACRO_SEARCH_REGION') -> List[Dict[str, str]]:
         """
-        특정 키워드로 뉴스 검색 (Macro용). config.MACRO_SEARCH_REGION 반영.
+        특정 키워드로 뉴스 검색 (Macro용). region_key 설정값('MACRO' or 'NEWS') 사용.
         """
         import config # Lazy import to avoid circular dependency if any
         print(f"🔎 Keyword Searching: '{keyword}'...")
         try:
-            region = getattr(config, 'MACRO_SEARCH_REGION', 'wt-wt')
+            region = getattr(config, region_key, 'wt-wt')
             results = DDGS().news(keywords=keyword, max_results=count, region=region, timelimit=time_limit)
             
             news_list = []
