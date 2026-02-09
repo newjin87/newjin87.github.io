@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "Get to know your Macbook (2) : mission control"
+title: 'Get to know your Macbook (2) : mission control'
 date: 2020-05-06 05:00:00 +0900
-Categories: Mac
 comments: true
-tags: mission control, macbook
+tags: ['mission control, macbook', Productivity, Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
-
  When using a MacBook, you will feel uncomfortable due to the small screen. In fact, this is also a difficulty experienced by ordinary laptops. In Windows, I mainly used the alt+tab function, and although it was inconvenient when I first used a MacBook, I used cmd+tab. However, when I was getting used to the Korean/English switch key rather than the capslock key, I wondered if there was a way to solve it in a more convenient way. The first solution was to use the paid application magnet to split the screen. However, the split screen was still inconvenient on the small screen of the MacBook. Then, while searching for a Naver cafe by chance, I found out that there was a thing called Space, and started searching for ways to utilize it. And let's take a look at how to use it.
 
 ## Desktop? Space? Mission Control?

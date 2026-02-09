@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "Getting to Know Your Macbook (4): Resolving USB-C Compatibility"
+title: 'Getting to Know Your Macbook (4): Resolving USB-C Compatibility'
 date: 2020-05-06 07:00:00 +0900
-Categories: Mac
 comments: true
-tags: usb-c, external hard drive, seagate
+tags: ['usb-c, external hard drive, seagate', Productivity, Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
-
  One of the most inconvenient things about using the MacBook Pro 2018 is that the USB port is only type-c. In the case of usb-c, it provides a fast work environment, but on the contrary, it provides inconvenience to users in terms of compatibility. Therefore, many users take various measures to solve this compatibility. In this article, I will explain my efforts to solve these problems. However, there is no correct answer to these methods, and it would be better to configure them according to your environment and taste.
 
 

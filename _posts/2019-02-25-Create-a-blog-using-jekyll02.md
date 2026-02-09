@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Create a blog using jekyll (2): What you need to know before posting"
+title: 'Create a blog using jekyll (2): What you need to know before posting'
 date: 2019-02-25 15:08:12 +0900
-Categories: jekyll
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
 > In the last post, we learned how to install jekyll and how to create a site using it. In this article, I would like to take a look at the things you need to know before posting in earnest on the site you created last time.
 
 

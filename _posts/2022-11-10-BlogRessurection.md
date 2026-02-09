@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "지킬 블로그 리셋하기"
-date:   2022-11-06 21:52:20 +0900
-categories: jekyll
+title: 지킬 블로그 리셋하기
+date: 2022-11-06 21:52:20 +0900
+categories: [Dev-Log]
 cover: /assets/dinosaur.gif
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
 > 블로그를 손에 놓은지 꽤 시간이 지나고 그 사이 블로그 작성에 사용하였던 노트북이나 컴퓨터가 바뀌었습니다. 그리고 다시 블로그를 시작하려고 하니 SEO에 검색이 안된다거나 페이지가 망가진채 작성이 안된다거나 이런 경우가 생기게 되어 결국 지킬 블로그 사용 방법이나 깃허브 사용법 등도 다시 익힐 겸 블로그 리셋을 결정하게 되었습니다.
 
 

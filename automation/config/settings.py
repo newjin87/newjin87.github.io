@@ -1,5 +1,16 @@
 
-# Configuration settings for Daily Briefing Automation
+import os
+from pathlib import Path
+
+# Base Directories
+# Assuming settings.py is in automation/config/
+AUTOMATION_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = AUTOMATION_DIR.parent
+POSTS_DIR = PROJECT_ROOT / "_posts"
+
+# Ensure _posts exists (it should in a Jekyll blog)
+if not POSTS_DIR.exists():
+    print(f"⚠️ Warning: _posts directory not found at {POSTS_DIR}")
 
 # --- 1. Macro Analysis Configuration ---
 MACRO_SEED_QUERIES = [

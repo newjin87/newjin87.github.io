@@ -82,6 +82,19 @@ def main():
     report_file.write_text(report_content, encoding="utf-8")
     
     print(f"   ✅ Report generated: {report_file}")
+    
+    # --- PUBLISH TO BLOG ---
+    # Generate Viral Title
+    viral_subtitle = analyzer.generate_viral_title(analysis_result.get("executive_summary", "")[:500])
+    blog_title = f"[{today_str}] {company_name} ({target_ticker}): {viral_subtitle}"
+    
+    generator.save_to_blog(
+        title=blog_title,
+        category="Stock-Analysis",
+        content=report_content,
+        tags=["Stock", company_name, target_ticker, "Investment"]
+    )
+    # -----------------------
 
 if __name__ == "__main__":
     main()

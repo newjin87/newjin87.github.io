@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "jekyll을 이용하여 블로그 만들기(7): GitHub 연동하기"
-date:   2019-04-07 12:08:12 +0900
-categories: IT
+title: 'jekyll을 이용하여 블로그 만들기(7): GitHub 연동하기'
+date: 2019-04-07 12:08:12 +0900
+categories: [Dev-Log]
 comments: true
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
 > 지금까지 jekyll을 이용하여 블로그를 만드는 방법에 대해서 알아보았다면 이제는 실제로 블로그를 GitHub에 연동하여 누구나 웹을 통해 접속이 가능하도록 하는 방법에 대해서 알아보고자 한다.
 
 

@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "Getting to know your Macbook (1): Making phone calls with your MacBook ft. iPhone"
+title: 'Getting to know your Macbook (1): Making phone calls with your MacBook ft.
+  iPhone'
 date: 2020-05-05 09:00:00 +0900
-Categories: Mac
 comments: true
-tags: facetime, ipad, macbook
+tags: [Productivity, 'facetime, ipad, macbook', Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
 If you are an Apple user who uses a MacBook, you are bound to think about compatibility with the iPhone and iPad. There are many ways to use it, but I would like to introduce one of the simplest and most effective ways. That is to make regular calls directly from your MacBook.
 

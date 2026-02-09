@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "블로그, 마크다운으로 작성해보자(2) - Typora 이용하기"
-date:   2019-03-08 12:08:12 +0900
-categories: IT
+title: 블로그, 마크다운으로 작성해보자(2) - Typora 이용하기
+date: 2019-03-08 12:08:12 +0900
+categories: [Dev-Log]
 comments: true
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
 >다음의 글은 ["블로그, 마크다운으로 작성해보자(1) - 마크다운이란?"](https://blog.naver.com/jinxc123/221468109616)의 두번째 글입니다.
 

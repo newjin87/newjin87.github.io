@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Create a blog using jekyll (5): Setting a theme, first"
-Categories: jekyll
+title: 'Create a blog using jekyll (5): Setting a theme, first'
 date: 2019-03-05 22:01:00 +0900
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
 >The greatest strength of jekyll is its many free themes. Like WordPress, many free themes are available for jekyll, and users can use them to decorate their homepage to their taste.
 

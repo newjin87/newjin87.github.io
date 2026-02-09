@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Macbook 알아가기 (1) : 맥북으로 전화통화하기 ft.아이폰"
-date:   2020-05-05 09:00:00 +0900
-categories: Mac
+title: 'Macbook 알아가기 (1) : 맥북으로 전화통화하기 ft.아이폰'
+date: 2020-05-05 09:00:00 +0900
+categories: [Tech-Tips]
 comments: true
-tags: 페이스타임, 아이패드, 맥북
+tags: ['페이스타임, 아이패드, 맥북', Productivity, Mac, IT-Tools]
 ---
 맥북을 사용하는 애플 유저라면 아이폰과 아이패드와의 호환성에 대해 고민해보기 마련이다. 여러 활용방법이 존재하지만 그 중에서 가장 간단하면서 효율성이 높은 방법 하나를 소개하고자 한다. 그것은 바로 맥북에서 직접 바로 일반 통화를 하는 것이다.
 

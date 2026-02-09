@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "Get to know your Macbook (5): Decorate your external hard drive for Mac"
+title: 'Get to know your Macbook (5): Decorate your external hard drive for Mac'
 date: 2020-05-06 08:00:00 +0900
-Categories: Mac
 comments: true
-tags: usb-c, external hard drive, seagate
+tags: ['usb-c, external hard drive, seagate', Productivity, Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
-
 ![img](https://github.com/newjin87/storage/blob/master/_img/mac/mac5-1.jpg?raw=true)
 
  In the previous article (<a href = "">Getting to know the MacBook Pro (4): Resolving usb-c compatibility</a>), Seagate's USB-C type external hard drive for Mac was recommended for use with the MacBook. have. However, even this product has several limitations. In this article, we will look at how to use this external hard drive and how to make it more helpful for Mac expandability. I couldn't use it for other external hard drives due to cost, but it will be possible to use it.

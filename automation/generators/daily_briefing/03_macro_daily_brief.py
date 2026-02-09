@@ -178,6 +178,22 @@ def main():
         if analysis_report_kr:
             saved_path_kr = reporter.save_analysis_report("analysis_macro_Economy_KR", analysis_report_kr)
             
+            # --- PUBLISH TO BLOG (KOREAN) ---
+            # Generate Viral Title
+            content_summary = analysis_report_kr[:500] if analysis_report_kr else "Global Macro Economic Analysis"
+            viral_subtitle = analyzer.generate_viral_title(content_summary)
+            
+            blog_title = f"[{today_str}] 글로벌 시황: {viral_subtitle}"
+            
+            reporter.save_to_blog(
+                title=blog_title,
+                title=blog_title,
+                category="Daily-Briefing",
+                content=analysis_report_kr,
+                tags=["Macro", "Economy", "Global-Market", "AI-Analysis"]
+            )
+            # --------------------------------
+            
             # Save a copy to a fixed path for "Korea Market Analysis" to consume
             # We use the Korean version as context for the Korean market analysis
             fixed_summary_path = Path("../../data/latest_global_macro_summary.txt")

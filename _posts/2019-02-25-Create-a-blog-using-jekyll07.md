@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Create a blog using jekyll (7): Integration with GitHub"
+title: 'Create a blog using jekyll (7): Integration with GitHub'
 date: 2019-04-07 12:08:12 +0900
-Categories: IT
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
 > If you have learned how to create a blog using jekyll so far, now let's look at how to actually link a blog to GitHub so that anyone can access it through the web.
 
 

@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
+import config.settings as config # Import settings for path
 
 class StateManager:
     """
@@ -58,6 +59,42 @@ class ReportGenerator:
     def sanitize_filename(self, text: str) -> str:
         # Replace forbidden characters with underscore
         return re.sub(r'[\\/*?:"<>| ]', '_', text)
+
+    def save_to_blog(self, title: str, category: str, content: str, tags: List[str] = [], date_str: str = None) -> str:
+        """
+        Saves content directly to the Jekyll _posts directory with YAML Front Matter.
+        """
+        if not date_str:
+            date_str = datetime.now().strftime("%Y-%m-%d")
+        
+        # 1. Prepare YAML Front Matter
+        safe_title = title.replace('"', '\\"')
+        safe_name = self.sanitize_filename(title).replace(" ", "-")
+        
+        markdown_content = f"""---
+layout: post
+title: "{safe_title}"
+date: {date_str} 09:00:00 +0900
+categories: [{category}]
+tags: [{", ".join(tags)}]
+---
+
+{content}
+"""
+        
+        # 2. Define File Path in _posts
+        # Filename: YYYY-MM-DD-title.md
+        filename = f"{date_str}-{safe_name}.md"
+        file_path = config.POSTS_DIR / filename
+        
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(markdown_content)
+            print(f"   🚀 Published to Blog: {file_path}")
+            return str(file_path)
+        except Exception as e:
+            print(f"   ❌ Failed to publish to blog: {e}")
+            return None
 
     def save_analysis_report(self, report_name: str, content: str):
         """

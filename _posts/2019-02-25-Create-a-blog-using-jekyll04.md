@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Create a blog using jekyll (4): Setting up Front Matter"
-Categories: jekyll
+title: 'Create a blog using jekyll (4): Setting up Front Matter'
 date: 2019-02-26 16:20:00 +0900
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
 > While creating a blog with jekyll, the most important thing is the front matter rather than the content of the article. Users who are familiar with other blog sites such as Naver may find the jekyll system very difficult. However, if you get used to it, you will be able to use it more comfortably than any other site. And what influences it is "Front Matter".
 

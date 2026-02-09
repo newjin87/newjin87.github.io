@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Todoist로 일정 관리 끝장내기"
-date:   2022-12-05 09:00:20 +0900
-categories: calendar
+title: Todoist로 일정 관리 끝장내기
+date: 2022-12-05 09:00:20 +0900
+categories: [Tech-Tips]
 cover: /assets/dinosaur.gif
+tags: [Productivity, Mac, IT-Tools]
 ---
 ## 1. Todoist는 어떤 앱인가?
 `todoist`는 강력한 할일 관리 앱이다. 스마트폰(아이폰, 안드로이드) 뿐만 아니라 윈도우와 맥에서도 사용이 가능하다. 일정이나 프로젝트를 관리하기 위해 사용되는 여러 캘린더 앱이나 Notion, 또는 에버노트 등의 노트류 앱에 비해  `todoist`는 매우 단순하고 직관적이다. 하지만 이러한 단순성이 `todoist`를 매우 강력한 프로젝트 또는 일정 관리 도구로 만들어준다. 특히 `todoist`의 강점은 PC에서 들어나기에 이번 글에서는 윈도우나 맥을 기준으로 해서 설명하도록 하겠다. 

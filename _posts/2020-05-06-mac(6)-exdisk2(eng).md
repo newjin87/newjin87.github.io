@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Getting to know your Macbook (6): Setting up an external hard drive for backup"
+title: 'Getting to know your Macbook (6): Setting up an external hard drive for backup'
 date: 2020-05-06 09:00:00 +0900
-Categories: Mac
 comments: true
-tags: usb-c, external hard drive, seagate
+tags: ['usb-c, external hard drive, seagate', Productivity, Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
 Previous post: [Getting to know your Macbook (5): Decorating an external hard drive for Mac]()
 

@@ -72,6 +72,26 @@ def main():
     
     # Save Korean
     output_file_kr = output_dir / f"{today_str}_Korea_Market_Strategy_KR.md"
+    
+    # Use reporter to save to blog directly
+    reporter = ReportGenerator()
+    
+    # Korea Market Analyzer uses 'analyzer' inside, but we need the NewsAnalyzer instance for title generation
+    # Let's instantiate NewsAnalyzer just for title generation or add method to KoreaMarketAnalyzer
+    # Simpler: Instantiate NewsAnalyzer
+    from libs.analyzer import NewsAnalyzer
+    news_gen = NewsAnalyzer()
+    
+    viral_subtitle = news_gen.generate_viral_title(strategy_report_kr[:500])
+    blog_title = f"[{today_str}] 한국 증시: {viral_subtitle}"
+    
+    reporter.save_to_blog(
+        title=blog_title,
+        category="Daily-Briefing",
+        content=strategy_report_kr + "\n\n---\n## 🔗 Referenced Korean News Sources\n" + "\n".join([f"- [{n['title']}]({n['url']})" for n in enriched_news]),
+        tags=["Korea-Market", "Investment-Strategy", "KOSPI", "Real-Estate"]
+    )
+    
     with open(output_file_kr, "w", encoding="utf-8") as f:
         f.write("# 🇰🇷 Korea Market Strategy Report (Global/Macro Driven)\n")
         f.write(f"Date: {today_str}\n\n")

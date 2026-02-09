@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Create a blog using jekyll (1): Installing jekyll"
+title: 'Create a blog using jekyll (1): Installing jekyll'
 date: 2019-02-25 12:08:12 +0900
-Categories: jekyll
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
  >In this article, we will learn how to create a blog using jekyll. Jekyll is a software that can create simple blogs or static sites, and is based on a programming language called "ruby". Jekyll was created in 2008 by Tom Preston-Werner, who is also the co-founder of GitHub. Jekyll is the engine for GitHub Pages and one of the most popular static site generators.
 
 ## Advantages of jekyll

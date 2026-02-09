@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Create a blog using jekyll (6): Setting a theme, first"
-Categories: jeyll
+title: 'Create a blog using jekyll (6): Setting a theme, first'
 date: 2019-03-29 22:01:00 +0900
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
-
 ## Let's choose a theme.
 
 Before setting up a theme, we recommend the following sites.

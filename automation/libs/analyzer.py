@@ -3,6 +3,7 @@ import google.generativeai as genai
 import ast
 import re
 from typing import List
+from config.prompts import Prompts
 
 class NewsAnalyzer:
     def __init__(self):
@@ -12,6 +13,19 @@ class NewsAnalyzer:
         
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel("gemini-2.0-flash")
+
+    def generate_viral_title(self, content_summary: str) -> str:
+        """
+        Generates a catchy blog title based on the content.
+        """
+        prompt = Prompts.TITLE_GENERATION.format(content_summary=content_summary[:2000]) # Limit context
+        try:
+            response = self.model.generate_content(prompt)
+            title = response.text.strip().replace('"', '')
+            return title
+        except Exception as e:
+            print(f"⚠️ Failed to generate title: {e}")
+            return "투자 분석 리포트"
 
     def extract_keywords(self, ticker: str, headlines: List[str], count: int = 5) -> List[str]:
         """

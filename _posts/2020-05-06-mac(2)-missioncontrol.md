@@ -1,12 +1,11 @@
 ---
 layout: post
-title:  "Macbook 알아가기 (2) : mission control"
-date:   2020-05-06 05:00:00 +0900
-categories: Mac
+title: 'Macbook 알아가기 (2) : mission control'
+date: 2020-05-06 05:00:00 +0900
+categories: [Tech-Tips]
 comments: true
-tags:  미션컨트롤, 맥북
+tags: [Productivity, IT-Tools, Mac, '미션컨트롤, 맥북']
 ---
-
  맥북을 사용하다 보면 작은 화면으로 인해 불편한 점을 느끼게 될 것이다. 이러한 점은 사실 일반 노트북에서도 겪는 어려움이기도 하다. 윈도우에서는 주로 alt+tab 기능을 활용하였고, 처음에 맥북을 사용할 때는 불편하긴 했지만 cmd+tab을 활용하였다. 하지만 슬슬 capslock 키보다 한/영 전환 키가 더 익숙해질 무렵 이를 좀더 편리한 방법으로 해결하는 방법은 없는지에 대한 궁금증이 생겼다. 가장 먼저 해결한 방법은 유료어플 magnet을 활용하여 화면 분할을 하는 방법이었다. 하지만 맥북의 작은 화면에서 화면 분할은 여전히 불편함이 있었다. 그러다 우연히 네이버 까페를 검색하다가 Space라는 것이 있다는 사실을 알게 되었고, 이를 활용하는 방법에 대해 검색하기 시작하였다. 그리고 이를 활용하는 방법에 대해 정리해보고자 한다.
 
 ## 데스크탑? Space? Mission Control?

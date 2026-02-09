@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "ApowerMirror : A little more specialized mirroring software for Android!"
+title: 'ApowerMirror : A little more specialized mirroring software for Android!'
 date: 2020-03-19 09:00:00 +0900
-Categories: IT
 comments: true
+categories: [Tech-Tips]
+tags: [Productivity, Mac, IT-Tools]
 ---
-
 # Let's use mirroring
 In a previous post, I discussed several ways to mirror an iPad to a computer screen.
 

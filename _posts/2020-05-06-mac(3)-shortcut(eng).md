@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Get to know your Macbook (3): Learn the basic keyboard shortcuts"
+title: 'Get to know your Macbook (3): Learn the basic keyboard shortcuts'
 date: 2020-05-06 06:00:00 +0900
-Categories: Mac
 comments: true
-tags: macbook , abbreviation 3
+tags: [Productivity, 'macbook , abbreviation 3', Mac, IT-Tools]
+categories: [Tech-Tips]
 ---
 There are a lot of keyboard shortcuts on the MacBook. In order to use this in a variety of ways, it will not be enough to study for a few days. In fact, you don't need to know everything, but it is bound to feel very frustrating for beginner users who have just moved from Windows. To help you do that, we're going to list out some important shortcuts. For reference, this is based on the contents of the official website of Apple, so it would be nice to check the following address to find out more details.
 

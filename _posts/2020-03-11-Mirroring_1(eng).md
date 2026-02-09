@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Mirror iPad on Windows PC(1)"
+title: Mirror iPad on Windows PC(1)
 date: 2020-03-12 09:00:00 +0900
-Categories: IT
 comments: true
+categories: [Tech-Tips]
+tags: [Productivity, Mac, IT-Tools]
 ---
-
 ## Let's use the iPad properly!
 Anyone who uses an iPad will want to use it to increase their productivity. But if you search for iPad on YouTube, you'll find tons of videos about iPad productivity. This is a story that the iPad is highly usable, but at the same time it is also a disprove that many people are not using it properly. There are many ways to use the iPad, but the one we want to cover in this article is mirroring. In addition, this theme is also available for iPhone, so please refer to it.
 ### 1) Mirroring on iPad?

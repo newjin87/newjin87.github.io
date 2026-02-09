@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Create a blog using jekyll (3): Let's do a post"
-Categories: jekyll
+title: 'Create a blog using jekyll (3): Let''s do a post'
 date: 2019-02-25 18:08:12 +0900
 comments: true
+categories: [Dev-Log]
+tags: [GitHub-Pages, Jekyll, Blog-Setup]
 ---
 >Before explaining this content, please note that I used the Atom editor in the Mac environment and explained based on using the Markdown language. In the case of an editor, you should use the editor you are comfortable with. If you use markdown, please use an editor that supports markdown.
 
