@@ -1,0 +1,9 @@
+yfinance
+requests
+duckduckgo-search
+beautifulsoup4
+python-dotenv
+google-generativeai
+curl_cffi
+lxml
+pydantic

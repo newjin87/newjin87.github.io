@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "news_scrap",
+			"path": "../../../../../1. personnel/50.coding/news_scrap"
+		},
+		{
+			"name": "news_scrap",
+			"path": "../../../../50.coding/news_scrap"
+		},
+		{
+			"name": "newjin87.github.io",
+			"path": "../../../../newjin87.github.io"
+		},
+		{
+			"name": "30.blog",
+			"path": "../../.."
+		}
+	],
+	"settings": {}
+}

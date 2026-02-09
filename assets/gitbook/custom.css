@@ -21,6 +21,22 @@
     padding: 0 15px;
 }
 
+/* --- Added for Tag/Category Styling --- */
+.post-meta { margin-bottom: 2rem; font-size: 0.9em; color: #666; }
+.post-tags .post-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    background-color: #f1f3f5; color: #495057; font-size: 0.8em;
+    margin-right: 6px; text-decoration: none; border: 1px solid #dee2e6;
+    transition: all 0.2s;
+}
+.post-tags .post-tag:hover {
+    background-color: #e9ecef; border-color: #ced4da; color: #212529; text-decoration: none;
+}
+.post-category-link {
+    font-weight: 600; color: #339af0; margin-right: 6px; text-decoration: none;
+}
+/* ------------------------------------- */
+
 .book-body .body-inner .page-wrapper {
     min-height: calc(100% - 46px);
     max-width: 1200px;

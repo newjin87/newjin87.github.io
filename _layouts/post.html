@@ -35,13 +35,26 @@
                         <div class="page-inner">
                             <h1>{{ page.title }}</h1>
                             <div class="post-meta">
-                                {% if page.categories %}
-                                    <span class="post-category" style="color: lightgray;">Categories: {{ page.categories | join: ', ' }}</span>
+                                {% if page.categories.size > 0 %}
+                                    <div class="post-categories" style="margin-bottom: 5px;">
+                                        📂 
+                                        {% for category in page.categories %}
+                                            <a href="{{ site.baseurl }}/search?q={{ category }}" class="post-category-link">{{ category }}</a>
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
-                                {% if page.tags %}
-                                    <span class="post-tags" style="color: lightgray;">Tags: {{ page.tags | join: ', ' }}</span>
+                                {% if page.tags.size > 0 %}
+                                    <div class="post-tags">
+                                        {% for tag in page.tags %}
+                                            <a href="{{ site.baseurl }}/search?q={{ tag }}" class="post-tag">#{{ tag }}</a>
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
+                                <div style="margin-top: 5px; color: #888; font-size: 0.85em;">
+                                    🕒 {{ page.date | date: "%Y-%m-%d" }}
+                                </div>
                             </div>
+                            <hr>
                             {{ content }}
                         </div>
                     </div>

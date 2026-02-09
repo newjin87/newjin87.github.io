@@ -103,3 +103,10 @@ defaults:
     values:
       layout: post
       comments: true
+exclude:
+  - automation/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+

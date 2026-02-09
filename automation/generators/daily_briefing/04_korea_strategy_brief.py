@@ -4,16 +4,17 @@ from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 
-from src.korea_news_scraper import KoreaNewsScraper
-from src.korea_market_analyzer import KoreaMarketAnalyzer
-from src.utils import ReportGenerator # Assuming this exists and is reusable
+import _path_setup
+from libs.korea_news_scraper import KoreaNewsScraper
+from libs.korea_market_analyzer import KoreaMarketAnalyzer
+from libs.utils import ReportGenerator
 
 def main():
     load_dotenv()
     print("--- 🇰🇷 Korea Market Strategy Briefing Started ---")
 
     # 1. Load Global Context
-    global_macro_path = Path("data/latest_global_macro_summary.txt")
+    global_macro_path = Path("../../data/latest_global_macro_summary.txt")
     if not global_macro_path.exists():
         print("❌ Global Macro Summary not found. Please run Step 1 (Macro Analysis) first.")
         return
@@ -66,7 +67,7 @@ def main():
 
     # 4. Save Reports
     today_str = datetime.now().strftime("%Y-%m-%d")
-    output_dir = Path(f"analysis_result/{today_str}")
+    output_dir = Path(f"../../data/analysis_result/{today_str}")
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Save Korean

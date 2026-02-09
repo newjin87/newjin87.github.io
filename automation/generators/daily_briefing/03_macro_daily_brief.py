@@ -8,12 +8,13 @@ from pathlib import Path
 from typing import Dict, List, Any
 from dotenv import load_dotenv
 
+import _path_setup
 import yfinance as yf
-from src.scraper import NewsScraper
-from src.analyzer import NewsAnalyzer
-from src.advisor import InvestmentAdvisor
-from src.utils import ReportGenerator, StateManager
-import config
+from libs.scraper import NewsScraper
+from libs.analyzer import NewsAnalyzer
+from libs.advisor import InvestmentAdvisor
+from libs.utils import ReportGenerator, StateManager
+import config.settings as config
 
 def get_market_indicators_summary():
     """
@@ -119,11 +120,11 @@ def main():
     scraper = NewsScraper()
     analyzer = NewsAnalyzer()
     advisor = InvestmentAdvisor()
-    state_manager = StateManager() # Initialize local state manager
-    reporter = ReportGenerator(base_dir="scraped_news/MACRO_ECONOMY") 
+    state_manager = StateManager(state_file_path="../../data/scraping_state.json") # Initialize local state manager
+    reporter = ReportGenerator(base_dir="../../data/scraped_news") 
     
     today_str = datetime.now().strftime("%Y-%m-%d")
-    news_file_path = reporter.base_dir / f"{today_str}_Macro_Economy_Briefing.md"
+    news_file_path = reporter.base_dir / "MACRO_ECONOMY" / f"{today_str}_Macro_Economy_Briefing.md"
     
     # ---------------------------------------------------------
     # Step 1: Check Existing News Data (Smart Integration)
@@ -179,7 +180,7 @@ def main():
             
             # Save a copy to a fixed path for "Korea Market Analysis" to consume
             # We use the Korean version as context for the Korean market analysis
-            fixed_summary_path = Path("data/latest_global_macro_summary.txt")
+            fixed_summary_path = Path("../../data/latest_global_macro_summary.txt")
             fixed_summary_path.parent.mkdir(parents=True, exist_ok=True)
             with open(fixed_summary_path, "w", encoding="utf-8") as f:
                 f.write(analysis_report_kr)

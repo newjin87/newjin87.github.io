@@ -89,3 +89,72 @@ class NewsAnalyzer:
             return ast.literal_eval(text)
         except Exception:
             return []
+
+    def analyze_company_news(self, company_name: str, news_items: list, macro_context: str = "") -> dict:
+        """
+        기업 뉴스 데이터를 분석하여 요약, 주요 이슈, 투자 포인트를 추출합니다.
+        사용자 요청: 키워드별 뉴스 요약 포함.
+        """
+        import json
+        
+        if not news_items:
+            return {"summary": "No news data available.", "keywords": []}
+
+        print(f"🧠 Analyzing detailed news for {company_name}...")
+        
+        # Prepare context (Max ~20 items to avoid token limits)
+        news_text = ""
+        for idx, item in enumerate(news_items[:20], 1): 
+            content_preview = item.get('content', '')[:1000] 
+            news_text += f"[{idx}] Title: {item.get('title', 'No Title')}\nContent: {content_preview}\n\n"
+
+        prompt = f"""
+        You are a Professional Equity Research Analyst.
+        Analyze the provided news articles for the company **{company_name}**.
+        
+        Context (Macro Economy):
+        {macro_context[:500] if macro_context else "No specific macro context provided."}
+        
+        News Data:
+        {news_text}
+        
+        Task:
+        1. **Executive Summary**: A concise summary of the current situation (3-5 sentences).
+        2. **Topic Analysis**: Group the news by key themes/keywords. For each keyword, provide a bullet-point summary of the relevant facts.
+        3. **Bullish Factors (Good News)**: List positive indicators.
+        4. **Bearish Factors (Risk Factors)**: List negative indicators or risks.
+        5. **Sentiment Score**: A score from 0 (Extremely Negative) to 100 (Extremely Positive).
+        
+        Output Format (JSON):
+        {{
+            "executive_summary": "...",
+            "topic_analysis": [
+                {{
+                    "keyword": "Topic Name",
+                    "summary": "- Fact 1...\\n- Fact 2..."
+                }}
+            ],
+            "bullish_factors": ["Point 1", "Point 2"],
+            "bearish_factors": ["Point 1", "Point 2"],
+            "sentiment_score": 75
+        }}
+        
+        IMPORTANT: Return ONLY valid JSON.
+        """
+        
+        try:
+            response = self.model.generate_content(prompt)
+            text = response.text.replace("```json", "").replace("```", "").strip()
+            # Clean up potential leading/trailing non-json chars
+            if "{" in text:
+                text = text[text.find("{"):text.rfind("}")+1]
+            return json.loads(text)
+        except Exception as e:
+            print(f"❌ Analysis failed: {e}")
+            return {
+                "executive_summary": "Analysis failed due to an error.",
+                "topic_analysis": [],
+                "bullish_factors": [],
+                "bearish_factors": [],
+                "sentiment_score": 50
+            }
