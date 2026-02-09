@@ -54,17 +54,13 @@ def main():
         except Exception as e:
             print(f"   ❌ Error scraping {item['url']}: {e}")
     
-    # 3. Analyze (Dual Language)
+    # 3. Analyze (Korean Only)
     analyzer = KoreaMarketAnalyzer()
     
     # 3-1. Korean Analysis
     print("\n🇰🇷 Generating Korean Report...")
     strategy_report_kr = analyzer.analyze_market_impact(global_summary, enriched_news, language='ko')
     
-    # 3-2. English Analysis
-    print("\n🇺🇸 Generating English Report...")
-    strategy_report_en = analyzer.analyze_market_impact(global_summary, enriched_news, language='en')
-
     # 4. Save Reports
     today_str = datetime.now().strftime("%Y-%m-%d")
     output_dir = Path(f"../../data/analysis_result/{today_str}")
@@ -101,18 +97,6 @@ def main():
         for news in enriched_news:
             f.write(f"- [{news['title']}]({news['url']})\n")
     print(f"\n🎉 Korea Strategy Report (KR) Saved: {output_file_kr}")
-
-    # Save English
-    output_file_en = output_dir / f"{today_str}_Korea_Market_Strategy_EN.md"
-    with open(output_file_en, "w", encoding="utf-8") as f:
-        f.write("# 🇰🇷 Korea Market Strategy Report (Global/Macro Driven) [EN]\n")
-        f.write(f"Date: {today_str}\n\n")
-        f.write(strategy_report_en)
-        f.write("\n\n---\n")
-        f.write("## 🔗 Referenced Korean News Sources\n")
-        for news in enriched_news:
-            f.write(f"- [{news['title']}]({news['url']})\n")
-    print(f"🎉 Korea Strategy Report (EN) Saved: {output_file_en}")
 
 
 if __name__ == "__main__":
