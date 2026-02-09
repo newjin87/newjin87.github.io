@@ -37,20 +37,20 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
+          git config --global pull.rebase false
           
-          # Add posts if generated (force add in case they are ignored, though usually they aren't)
-          git add _posts/
+          # Ensure directories exist
+          mkdir -p automation/analysis_result/
+          mkdir -p automation/data/
           
-          # Add data if exists (using || true to suppress error if empty)
-          git add automation/data/ || true
-          git add automation/analysis_result/ || true
+          # Add all changes
+          git add -A
           
-          # Determine if there are changes
-          if [[ -n $(git status -s) ]]; then
-            git config --global pull.rebase true
-            git pull origin main
+          # Check if there are changes to commit
+          if ! git diff --cached --quiet; then
+            git pull origin main --no-rebase || true
             git commit -m "🤖 Daily Briefing Report: $(date +'%Y-%m-%d')"
-            git push
+            git push origin main
           else
             echo "No changes to commit."
           fi
