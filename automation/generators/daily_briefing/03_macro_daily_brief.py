@@ -187,7 +187,6 @@ def main():
             
             reporter.save_to_blog(
                 title=blog_title,
-                title=blog_title,
                 category="Daily-Briefing",
                 content=analysis_report_kr,
                 tags=["Macro", "Economy", "Global-Market", "AI-Analysis"]
