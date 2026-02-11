@@ -124,7 +124,7 @@ def main():
     reporter = ReportGenerator(base_dir="../../data/scraped_news") 
     
     today_str = datetime.now().strftime("%Y-%m-%d")
-    news_file_path = reporter.base_dir / "MACRO_ECONOMY" / f"{today_str}_Macro_Economy_Briefing.md"
+    news_file_path = reporter.base_dir / f"{today_str}_Macro_Economy_Briefing.md"
     
     # ---------------------------------------------------------
     # Step 1: Check Existing News Data (Smart Integration)
